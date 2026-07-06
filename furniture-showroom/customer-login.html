@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adam's House — Sign In to Order</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[var(--bg)] min-h-screen flex items-center justify-center p-6">
+
+  <div class="w-full max-w-md">
+    <a href="home.html" class="flex items-center justify-center gap-2 mb-10">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <path d="M4 26 L16 6 L28 26 M9 26 L16 14 L23 26" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>
+      <span class="font-display text-3xl">Adam's House</span>
+    </a>
+
+    <div class="bg-[var(--bg-alt)] border border-[var(--border)] p-8">
+      <h1 class="font-display text-2xl mb-2">Welcome Back</h1>
+      <p class="text-sm text-[var(--muted)] mb-8">Sign in to place your order.</p>
+
+      <form id="signin-form" onsubmit="handleSignIn(event)">
+        <div class="mb-4">
+          <label class="form-label" for="signin-email">Email</label>
+          <input type="email" id="signin-email" class="dash-input" required placeholder="you@email.com" autocomplete="email">
+        </div>
+        <div class="mb-6">
+          <label class="form-label" for="signin-password">Password</label>
+          <input type="password" id="signin-password" class="dash-input" required placeholder="Your password" autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn-primary w-full justify-center">
+          <span>Sign In</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </form>
+
+      <p class="text-center text-sm text-[var(--muted)] mt-6">
+        Don't have an account?
+        <a id="register-link" href="register.html" class="text-[var(--accent)] font-semibold hover:underline">Create one</a>
+      </p>
+    </div>
+
+    <p class="text-center text-sm text-[var(--muted)] mt-6">
+      <a href="home.html" class="hover:text-[var(--accent)]">← Back to showroom</a>
+    </p>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    redirectIfLoggedIn();
+    document.getElementById('register-link').href = authLink('register.html');
+
+    async function handleSignIn(e) {
+      e.preventDefault();
+      const result = await signInCustomer(
+        document.getElementById('signin-email').value.trim().toLowerCase(),
+        document.getElementById('signin-password').value
+      );
+      if (!result.ok) {
+        alert(result.error + ' Create an account if you are a new customer.');
+        return;
+      }
+      window.location.href = getReturnUrl();
+    }
+  </script>
+  <script src="js/translate.js"></script>
+</body>
+</html>

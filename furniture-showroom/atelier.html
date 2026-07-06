@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adam's House — The Atelier</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="atelier-page bg-[var(--bg)]">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/85 backdrop-blur-md border-b border-[var(--border)]/50">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-5 flex items-center justify-between">
+      <a href="home.html" class="flex items-center gap-2">
+        
+        <span class="font-display text-2xl font-medium tracking-tight">Adam's House</span>
+      </a>
+      <div class="hidden lg:flex items-center gap-10 text-sm font-medium">
+        <a href="home.html#categories" class="nav-link">Collections</a>
+        <a href="atelier.html" class="nav-link text-[var(--accent)]">Atelier</a>
+        <a href="home.html#visit" class="nav-link">Contact</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="cart.html" class="relative text-xl hover:text-[var(--accent)] transition-colors nav-icon-btn" title="Cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="absolute -top-2 -right-2 bg-[var(--accent)] text-[var(--fg-light)] text-[10px] w-4 h-4 rounded-full flex items-center justify-center cart-count">0</span>
+        </a>
+        <a href="customer-login.html" data-user-link class="nav-icon-btn text-xl hover:text-[var(--accent)] transition-colors" title="Sign in">
+          <i class="fa-solid fa-circle-user"></i>
+        </a>
+        <button id="mobile-menu-btn" class="lg:hidden text-xl"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-screen w-1/2 bg-[var(--bg)] border-l border-[var(--border)] p-6 lg:hidden flex flex-col gap-6">
+      <button class="self-end text-2xl" onclick="document.getElementById('mobile-menu').classList.remove('open')"><i class="fa-solid fa-xmark"></i></button>
+      <a href="home.html#categories" class="text-xl font-display" onclick="document.getElementById('mobile-menu').classList.remove('open')">Collections</a>
+      <a href="atelier.html" class="text-xl font-display text-[var(--accent)]" onclick="document.getElementById('mobile-menu').classList.remove('open')">Atelier</a>
+      <a href="home.html#visit" class="text-xl font-display" onclick="document.getElementById('mobile-menu').classList.remove('open')">Contact</a>
+      <a href="customer-login.html" data-user-link class="text-xl font-display text-[var(--accent)] mt-auto">Sign In</a>
+    </div>
+  </nav>
+
+
+
+  <!-- Hero -->
+  <section id="The Workshop" data-nav-dark class="pt-40 pb-20 bg-[var(--bg-dark)] text-[var(--fg-light)] relative grain overflow-hidden">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <span class="w-12 h-px bg-[var(--accent-light)]"></span>
+            <span class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent-light)]">The Workshop</span>
+          </div>
+          <h1 class="font-display text-5xl lg:text-7xl font-light leading-tight mb-6">
+            A library of<br><span class="font-display-italic">wood and time.</span>
+          </h1>
+          <p class="text-lg text-[var(--muted-light)] leading-relaxed max-w-md mb-8">
+            Since 2020, our atelier in Alexandria has been more than a workshop. It is a living archive of technique, where timber is listened to, understood, and shaped into heirlooms.
+          </p>
+          <div class="flex gap-12 mt-12">
+            <div>
+              <div class="font-display text-4xl font-light">12</div>
+              <div class="text-xs uppercase tracking-wider text-[var(--muted-light)] mt-1">Coats of finish</div>
+            </div>
+            <div>
+              <div class="font-display text-4xl font-light">2yr</div>
+              <div class="text-xs uppercase tracking-wider text-[var(--muted-light)] mt-1">Air-drying</div>
+            </div>
+            <div>
+              <div class="font-display text-4xl font-light">∞</div>
+              <div class="text-xs uppercase tracking-wider text-[var(--muted-light)] mt-1">Repair promise</div>
+            </div>
+          </div>
+        </div>
+        <div class="relative aspect-[4/5] overflow-hidden">
+          <img src="photos/Workshop.png" alt="Atelier Workshop" class="w-full h-full object-cover">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Process -->
+  <section id="The Process" class="py-24 lg:py-32 relative">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="text-center mb-20 reveal">
+        <div class="flex items-center justify-center gap-3 mb-4">
+          <span class="w-12 h-px bg-[var(--accent)]"></span>
+          <span class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent)]">From Timber to Heirloom</span>
+          <span class="w-12 h-px bg-[var(--accent)]"></span>
+        </div>
+        <h2 class="font-display text-5xl lg:text-6xl font-light">The <span class="font-display-italic">Process</span></h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Step 1 -->
+        <div class="reveal group">
+          <div class="aspect-[4/5] overflow-hidden mb-6 bg-[var(--bg-alt)] relative">
+            <img src="photos/Sketch.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Sketching">
+            <div class="absolute top-4 left-4 bg-[var(--bg)] text-[var(--fg)] w-12 h-12 flex items-center justify-center font-display text-xl">01</div>
+          </div>
+          <h3 class="font-display text-2xl mb-3">The Sketch</h3>
+          <p class="text-[var(--muted)] text-sm leading-relaxed">Every piece begins as a pencil drawing on paper. Proportions are debated, curves are refined, and the soul of the piece is defined.</p>
+        </div>
+        
+        <!-- Step 2 -->
+        <div class="reveal group" style="transition-delay: 0.15s">
+          <div class="aspect-[4/5] overflow-hidden mb-6 bg-[var(--bg-alt)] relative">
+            <img src="photos/Timber.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Milling">
+            <div class="absolute top-4 left-4 bg-[var(--bg)] text-[var(--fg)] w-12 h-12 flex items-center justify-center font-display text-xl">02</div>
+          </div>
+          <h3 class="font-display text-2xl mb-3">The Timber</h3>
+          <p class="text-[var(--muted)] text-sm leading-relaxed">Winter-felled wood is air-dried for two seasons. We select boards for grain continuity, matching them by eye to the sketch.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="reveal group" style="transition-delay: 0.3s">
+          <div class="aspect-[4/5] overflow-hidden mb-6 bg-[var(--bg-alt)] relative">
+            <img src="photos/Joinery.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Joinery">
+            <div class="absolute top-4 left-4 bg-[var(--bg)] text-[var(--fg)] w-12 h-12 flex items-center justify-center font-display text-xl">03</div>
+          </div>
+          <h3 class="font-display text-2xl mb-3">The Joinery</h3>
+          <p class="text-[var(--muted)] text-sm leading-relaxed">Hand-cut dovetails and mortise-and-tenon joints. We use no screws where wood can hold wood. The frame is assembled dry.</p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="reveal group" style="transition-delay: 0.45s">
+          <div class="aspect-[4/5] overflow-hidden mb-6 bg-[var(--bg-alt)] relative">
+            <img src="photos/Finish.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Finishing">
+            <div class="absolute top-4 left-4 bg-[var(--bg)] text-[var(--fg)] w-12 h-12 flex items-center justify-center font-display text-xl">04</div>
+          </div>
+          <h3 class="font-display text-2xl mb-3">The Finish</h3>
+          <p class="text-[var(--muted)] text-sm leading-relaxed">Twelve thin layers of shellac and wax are rubbed by hand into the grain. This slow build creates a depth that machines cannot replicate.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Materials & Sourcing -->
+  <section id="Materials" class="py-24 lg:py-32 bg-[var(--bg-alt)]">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div class="reveal order-2 lg:order-1">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-12 h-px bg-[var(--accent)]"></span>
+            <span class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent)]">Materials</span>
+          </div>
+          <h2 class="font-display text-4xl lg:text-5xl font-light leading-tight mb-8">
+            Sourced with<br><span class="font-display-italic">conscience.</span>
+          </h2>
+          <p class="text-[var(--muted)] leading-relaxed mb-8">
+            Every piece of furniture starts with carefully selected materials. 
+            We use premium Beechwood, Plywood, and Swedish Wood, chosen for their durability, 
+            stability, and versatility. Combined with expert craftsmanship, these materials 
+            allow us to create furniture that is both elegant and built to last.
+          </p>
+          
+          <div class="grid grid-cols-3 gap-6 mt-8 border-t border-[var(--border)] pt-8">
+            <div>
+              <div class="font-display text-2xl mb-1">Beechwood</div>
+              <p class="text-xs text-[var(--muted)]">Strong, durable, and ideal for high-quality furniture frames.</p>
+            </div>
+            <div>
+              <div class="font-display text-2xl mb-1">Plywood</div>
+              <p class="text-xs text-[var(--muted)]">Engineered for stability, strength, and long-lasting performance.</p>
+            </div>
+            <div>
+              <div class="font-display text-2xl mb-1">Swedish Wood</div>
+              <p class="text-xs text-[var(--muted)]">Lightweight, reliable, and perfect for modern furniture construction.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="reveal order-1 lg:order-2 relative">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="aspect-[3/4] overflow-hidden mt-12">
+              <img src="photos/Material_1.png" class="w-full h-full object-cover" alt="Wood texture">
+            </div>
+            <div class="aspect-[3/4] overflow-hidden">
+              <img src="photos/Material_2.png" class="w-full h-full object-cover" alt="Wood planks">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section id="Timeline" class="py-24 lg:py-32 bg-[var(--bg-dark)] text-[var(--fg-light)] relative grain">
+    <div class="max-w-[4xl] mx-auto px-6 lg:px-12 relative z-10">
+      <div class="text-center mb-20 reveal">
+        <div class="flex items-center justify-center gap-3 mb-4">
+          <span class="w-12 h-px bg-[var(--accent-light)]"></span>
+          <span class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent-light)]">Our History</span>
+          <span class="w-12 h-px bg-[var(--accent-light)]"></span>
+        </div>
+        <h2 class="font-display text-5xl lg:text-6xl font-light">A timeline of <span class="font-display-italic">craft.</span></h2>
+      </div>
+
+      <div class="space-y-12 relative before:absolute before:top-2 before:bottom-2 before:left-[7px] md:before:left-1/2 md:before:-translate-x-1/2 before:w-px before:bg-[var(--border-dark)]">
+        
+        <div class="relative pl-10 md:pl-0 md:grid md:grid-cols-2 md:gap-8 reveal">
+          <div class="md:text-right md:pr-8">
+            <div class="font-display text-4xl text-[var(--accent-light)] mb-2">2010</div>
+            <h3 class="font-display text-xl mb-2">The Beginning</h3>
+            <p class="text-sm text-[var(--muted-light)] leading-relaxed">
+              Opened our first showroom in Riyadh, Saudi Arabia, laying the foundation for
+               Adam's House Furniture with a passion for quality and timeless craftsmanship.</p>
+          </div>
+          <div class="hidden md:block"></div>
+          <div class="absolute left-0 top-2 w-4 h-4 rounded-full bg-[var(--accent)] border-4 border-[var(--bg-dark)] md:left-1/2 md:-translate-x-1/2"></div>
+        </div>
+
+        <div class="relative pl-10 md:pl-0 md:grid md:grid-cols-2 md:gap-8 reveal">
+          <div class="hidden md:block"></div>
+          <div class="md:pl-8">
+            <div class="font-display text-4xl text-[var(--accent-light)] mb-2">2020</div>
+            <h3 class="font-display text-xl mb-2">Expansion to Egypt</h3>
+            <p class="text-sm text-[var(--muted-light)] leading-relaxed">Opened our Alexandria, 
+              Egypt showroom, expanding our journey and bringing our handcrafted furniture to new customers.</p>
+          </div>
+          <div class="absolute left-0 top-2 w-4 h-4 rounded-full bg-[var(--accent)] border-4 border-[var(--bg-dark)] md:left-1/2 md:-translate-x-1/2"></div>
+        </div>
+
+        <div class="relative pl-10 md:pl-0 md:grid md:grid-cols-2 md:gap-8 reveal">
+          <div class="md:text-right md:pr-8">
+            <div class="font-display text-4xl text-[var(--accent-light)] mb-2">2022</div>
+            <h3 class="font-display text-xl mb-2">New Location</h3>
+            <p class="text-sm text-[var(--muted-light)] leading-relaxed">The showroom has moved to Alexandria,
+               Sidi Bishr Qebli, 181 Gamal Abd El-Nasir.</p>
+          </div>
+          <div class="hidden md:block"></div>
+          <div class="absolute left-0 top-2 w-4 h-4 rounded-full bg-[var(--accent)] border-4 border-[var(--bg-dark)] md:left-1/2 md:-translate-x-1/2"></div>
+        </div>
+
+        <div class="relative pl-10 md:pl-0 md:grid md:grid-cols-2 md:gap-8 reveal">
+          <div class="hidden md:block"></div>
+          <div class="md:pl-8">
+            <div class="font-display text-4xl text-[var(--accent-light)] mb-2">Today</div>
+            <h3 class="font-display text-xl mb-2">Adam's House Online</h3>
+            <p class="text-sm text-[var(--muted-light)] leading-relaxed">Adam's House Furniture continues to create high-quality 
+              furniture while combining traditional craftsmanship with modern design, serving customers across Egypt.</p>
+          </div>
+          <div class="absolute left-0 top-2 w-4 h-4 rounded-full bg-[var(--accent-light)] border-4 border-[var(--bg-dark)] md:left-1/2 md:-translate-x-1/2 pulse"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Visit CTA -->
+  <section class="py-24 lg:py-32 bg-[var(--bg-alt)]">
+    <div class="max-w-[800px] mx-auto px-6 text-center reveal">
+      <h2 class="font-display text-4xl lg:text-5xl font-light leading-tight mb-6">
+        Visit the <span class="font-display-italic">workshop.</span>
+      </h2>
+      <p class="text-lg text-[var(--muted)] leading-relaxed mb-10">
+        We open the atelier doors to clients and designers on the first Friday of every month. Come see the sawdust, smell the shellac, and watch your furniture take shape.
+      </p>
+      <a href="home.html#visit" class="btn-primary">
+        <span>Book a Workshop Tour</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer data-nav-dark class="bg-[var(--bg-dark)] text-[var(--fg-light)] py-12 relative grain">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 text-center text-sm text-[var(--muted-light)]">
+      © 2026 Adam's House · Alexandria, Sidi Bishr Qebli, 181 Gamal Abd El-Nasir· 01123415353
+    </div>
+  </footer>
+
+  <div id="toast-container" class="fixed top-6 right-6 z-[2000]"></div>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/translate.js"></script>
+</body>
+</html>

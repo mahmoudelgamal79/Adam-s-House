@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adam's House — Product</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="product-page bg-[var(--bg)]">
+
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/85 backdrop-blur-md border-b border-[var(--border)]/50">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-5 flex items-center justify-between">
+      <a href="home.html" class="flex items-center gap-2">
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+          <path d="M4 26 L16 6 L28 26 M9 26 L16 14 L23 26" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+        <span class="font-display text-2xl font-medium tracking-tight">Adam's House</span>
+      </a>
+      <div class="hidden lg:flex items-center gap-10 text-sm font-medium">
+        <a href="home.html#categories" class="nav-link">Collections</a>
+        <a href="home.html#offers" class="nav-link">Offers</a>
+        <a href="home.html#visit" class="nav-link">Contact</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="cart.html" class="relative text-xl hover:text-[var(--accent)] transition-colors">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="absolute -top-2 -right-2 bg-[var(--accent)] text-[var(--fg-light)] text-[10px] w-4 h-4 rounded-full flex items-center justify-center cart-count">0</span>
+        </a>
+        <a href="customer-login.html" data-login-link class="hidden md:flex text-sm font-semibold uppercase tracking-wide text-[var(--accent)]">Sign In</a>
+        <a href="customer-login.html" data-user-link class="nav-icon-btn text-xl hover:text-[var(--accent)] transition-colors" title="Sign in">
+          <i class="fa-solid fa-circle-user"></i>
+        </a>
+        <button id="mobile-menu-btn" class="lg:hidden text-xl"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-screen w-1/2 bg-[var(--bg)] border-l border-[var(--border)] p-6 lg:hidden flex flex-col gap-6">
+      <button class="self-end text-2xl" onclick="document.getElementById('mobile-menu').classList.remove('open')"><i class="fa-solid fa-xmark"></i></button>
+      <a href="home.html#categories" class="text-xl font-display" onclick="document.getElementById('mobile-menu').classList.remove('open')">Collections</a>
+      <a href="home.html#offers" class="text-xl font-display" onclick="document.getElementById('mobile-menu').classList.remove('open')">Offers</a>
+      <a href="home.html#visit" class="text-xl font-display" onclick="document.getElementById('mobile-menu').classList.remove('open')">Contact</a>
+    </div>
+  </nav>
+
+  <section class="pt-32 pb-24">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <!--
+        LEGACY: This page is built by JavaScript (js/main.js).
+        For editable HTML pages, use the files in the /products folder instead.
+        Example: products/astro-bunk-bed.html
+      -->
+      <div id="product-container" class="mt-8">
+      </div>
+    </div>
+  </section>
+
+  <div id="toast-container" class="fixed top-6 right-6 z-[2000]"></div>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/translate.js"></script>
+</body>
+</html>

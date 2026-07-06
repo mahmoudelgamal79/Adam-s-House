@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adam's House — Fine Furniture Showroom</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="home-page">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/85 backdrop-blur-md border-b border-[var(--border)]/50">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-5 flex items-center justify-between">
+      <a href="home.html" class="flex items-center gap-2">
+        <img src="photos/logo_1.png" alt="Logo" class="w-70 h-16 object-cover">
+      </a>
+      <div class="hidden lg:flex items-center gap-10 text-sm font-medium">
+        <a href="home.html#categories" class="nav-link">Collections</a>
+        <a href="home.html#offers" class="nav-link">Offers</a>
+        <a href="atelier.html" class="nav-link">Atelier</a>
+        <a href="home.html#visit" class="nav-link">Contact</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="cart.html" class="relative text-xl hover:text-[var(--accent)] transition-colors nav-icon-btn" title="Cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="absolute -top-2 -right-2 bg-[var(--accent)] text-[var(--fg-light)] text-[10px] w-4 h-4 rounded-full flex items-center justify-center cart-count">0</span>
+        </a>
+        <a href="customer-login.html" data-user-link class="nav-icon-btn text-xl hover:text-[var(--accent)] transition-colors" title="Sign in">
+          <i class="fa-solid fa-circle-user"></i>
+        </a>
+        <a href="customer-login.html" data-login-link class="hidden md:flex items-center gap-2 text-sm font-semibold tracking-wide uppercase border border-[var(--fg)] px-5 py-2.5 hover:bg-[var(--fg)] hover:text-[var(--fg-light)] transition-all">
+          Sign In
+        </a>
+        <a href="register.html" data-login-link class="hidden md:flex items-center gap-2 text-sm font-semibold tracking-wide uppercase text-[var(--accent)] hover:underline">
+          Register
+        </a>
+        <button id="mobile-menu-btn" class="lg:hidden text-xl"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-screen w-1/2 bg-[var(--bg)] border-l border-[var(--border)] p-6 lg:hidden flex flex-col gap-6">
+      <button id="mobile-menu-close" class="self-end text-2xl" onclick="document.getElementById('mobile-menu').classList.remove('open')"><i class="fa-solid fa-xmark"></i></button>
+      <a href="home.html#categories" class="text-xl font-display" onclick="document.getElementById('mobile-menu').classList.remove('open')">Collections</a>
+      <a href="home.html#offers" class="text-xl font-display" onclick="document.getElementById('mobile-menu').classList.remove('open')">Offers</a>
+      <a href="home.html#craft" class="text-xl font-display" onclick="document.getElementById('mobile-menu').classList.remove('open')">Atelier</a>
+      <a href="home.html#visit" class="text-xl font-display" onclick="document.getElementById('mobile-menu').classList.remove('open')">Contact</a>
+      <a href="customer-login.html" data-login-link class="text-xl font-display text-[var(--accent)]">Sign In</a>
+      <a href="register.html" data-login-link class="text-xl font-display text-[var(--muted)]">Register</a>
+      <a href="account.html" data-user-link class="text-xl font-display text-[var(--accent)] mt-auto"><i class="fa-solid fa-circle-user mr-2"></i>My Account</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="relative min-h-screen pt-28 lg:pt-32 pb-16 overflow-hidden grain">
+    <canvas id="hero-canvas" class="hero-canvas"></canvas>
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
+      <div class="grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+        <div class="lg:col-span-6 relative">
+          <div class="flex items-center gap-3 mb-8 reveal">
+            <span class="w-12 h-px bg-[var(--accent)]"></span>
+            <span class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent)]">Alexandria · Since 2010</span>
+          </div>
+          <h1 class="hero-headline font-display text-[clamp(3rem,8vw,7rem)] font-light leading-[0.95] mb-8">
+            <span style="animation-delay: 0.1s">Furniture</span><br>
+            <span style="animation-delay: 0.3s" class="font-display-italic font-normal">that holds</span><br>
+            <span style="animation-delay: 0.5s">time.</span>
+          </h1>
+          <p class="text-lg text-[var(--muted)] max-w-md mb-10 leading-relaxed reveal" style="transition-delay: 0.7s">
+            Three generations of cabinetmakers, seven collections under one roof. Each piece is drawn by hand, joined without compromise, and finished in slow layers.
+          </p>
+          <div class="flex flex-wrap gap-4 reveal" style="transition-delay: 0.9s">
+            <a href="#categories" class="btn-primary">
+              <span>Explore Collections</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="#visit" class="btn-ghost">
+              <span>Contact Us</span>
+            </a>
+          </div>
+        </div>
+        <div class="lg:col-span-6 relative">
+          <div class="relative">
+            <div class="img-overlay aspect-[4/5] overflow-hidden">
+              <img src="photos/1.jpeg" alt="Featured furniture" class="w-full h-full object-cover">
+            </div>
+            <div class="floating-tag absolute -left-6 top-12 hidden md:block">
+              <div class="flex items-center gap-3">
+                <span class="w-2 h-2 rounded-full bg-[var(--accent)] pulse"></span>
+                <span>Walnut · Hand-rubbed</span>
+              </div>
+            </div>
+            <div class="absolute -bottom-6 left-0 right-0 mx-6 bg-[var(--bg)] border border-[var(--border)] p-5 flex items-center justify-between">
+              <div>
+                <div class="text-xs uppercase tracking-wider text-[var(--muted)]">Featured</div>
+                <div class="font-display text-xl mt-1">Vienna Canopy Bed</div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs uppercase tracking-wider text-[var(--muted)]">From</div>
+                <div class="font-display text-xl mt-1">EGP 42,000</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section id="categories" class="py-24 lg:py-32 relative">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6 reveal">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-12 h-px bg-[var(--accent)]"></span>
+            <span class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent)]">Seven Collections</span>
+          </div>
+          <h2 class="font-display text-5xl lg:text-7xl font-light leading-tight max-w-2xl">
+            Browse our<br><span class="font-display-italic">showroom sections.</span>
+          </h2>
+        </div>
+        <p class="text-[var(--muted)] max-w-md leading-relaxed">
+          Master Bedrooms, Children's Rooms, Dining Rooms, Salons, Living Room, Chalet furnishings, Libraries & Accessories, Restaurants & Cafes — each with its own dedicated collection.
+        </p>
+      </div>
+      <!--
+        EDIT CATEGORIES HERE (plain HTML)
+        - Change image: update the <img src="..."> on each card
+        - Change text: edit the piece count, <h3> title, and <p> description
+        - Change link: update href on each <a> (must match category id in js/data.js)
+      -->
+      <div id="categories-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <a href="categories/master-bedrooms.html" class="cat-card cat-card-featured reveal" aria-label="Master Bedrooms">
+          <div class="cat-card-image aspect-[4/5] lg:aspect-[3/4]">
+            <img src="photos/Master Bedrooms.jpg" alt="Master Bedrooms" class="cat-img">
+            <div class="cat-card-overlay"></div>
+            <div class="cat-card-content">
+              <div class="text-[10px] uppercase tracking-[0.25em] text-[var(--accent-light)] mb-2">3 pieces</div>
+              <h3 class="font-display text-3xl lg:text-4xl font-light text-[var(--fg-light)] leading-tight">Master Bedrooms</h3>
+              <p class="cat-card-desc">Grand beds, wardrobes, and dressers for spacious master suites.</p>
+              <span class="cat-card-cta">Explore Collection <i class="fa-solid fa-arrow-right ml-2"></i></span>
+            </div>
+          </div>
+        </a>
+
+        <a href="categories/childrens-rooms.html" class="cat-card cat-card-featured reveal" aria-label="Children's Rooms">
+          <div class="cat-card-image aspect-[4/5] lg:aspect-[3/4]">
+            <img src="photos/Children's Rooms.jpg" alt="Children's Rooms" class="cat-img">
+            <div class="cat-card-overlay"></div>
+            <div class="cat-card-content">
+              <div class="text-[10px] uppercase tracking-[0.25em] text-[var(--accent-light)] mb-2">3 pieces</div>
+              <h3 class="font-display text-3xl lg:text-4xl font-light text-[var(--fg-light)] leading-tight">Children's Rooms</h3>
+              <p class="cat-card-desc">Bunk beds, study desks, and playful storage for growing families.</p>
+              <span class="cat-card-cta">Explore Collection <i class="fa-solid fa-arrow-right ml-2"></i></span>
+            </div>
+          </div>
+        </a>
+
+        <a href="categories/dining-rooms.html" class="cat-card cat-card-featured reveal" aria-label="Dining Rooms">
+          <div class="cat-card-image aspect-[4/5] lg:aspect-[3/4]">
+            <img src="photos/Dining Rooms.jpg" alt="Dining Rooms" class="cat-img">
+            <div class="cat-card-overlay"></div>
+            <div class="cat-card-content">
+              <div class="text-[10px] uppercase tracking-[0.25em] text-[var(--accent-light)] mb-2">3 pieces</div>
+              <h3 class="font-display text-3xl lg:text-4xl font-light text-[var(--fg-light)] leading-tight">Dining Rooms</h3>
+              <p class="cat-card-desc">Dining tables, chairs, and sideboards for memorable gatherings.</p>
+              <span class="cat-card-cta">Explore Collection <i class="fa-solid fa-arrow-right ml-2"></i></span>
+            </div>
+          </div>
+        </a>
+
+        <a href="categories/salons.html" class="cat-card cat-card-featured reveal" aria-label="Salons">
+          <div class="cat-card-image aspect-[4/5] lg:aspect-[3/4]">
+            <img src="photos/Salons.jpg" alt="Salons" class="cat-img">
+            <div class="cat-card-overlay"></div>
+            <div class="cat-card-content">
+              <div class="text-[10px] uppercase tracking-[0.25em] text-[var(--accent-light)] mb-2">2 pieces</div>
+              <h3 class="font-display text-3xl lg:text-4xl font-light text-[var(--fg-light)] leading-tight">Salons</h3>
+              <p class="cat-card-desc">Elegant formal living spaces for entertaining guests in style.</p>
+              <span class="cat-card-cta">Explore Collection <i class="fa-solid fa-arrow-right ml-2"></i></span>
+            </div>
+          </div>
+        </a>
+
+        <a href="categories/living-room.html" class="cat-card cat-card-featured reveal" aria-label="Living Room">
+          <div class="cat-card-image aspect-[4/5] lg:aspect-[3/4]">
+            <img src="photos/Living Room.jpg" alt="Living Room" class="cat-img">
+            <div class="cat-card-overlay"></div>
+            <div class="cat-card-content">
+              <div class="text-[10px] uppercase tracking-[0.25em] text-[var(--accent-light)] mb-2">2 pieces</div>
+              <h3 class="font-display text-3xl lg:text-4xl font-light text-[var(--fg-light)] leading-tight">Living Room</h3>
+              <p class="cat-card-desc">Complete salon suites with sofas, armchairs, and coffee tables.</p>
+              <span class="cat-card-cta">Explore Collection <i class="fa-solid fa-arrow-right ml-2"></i></span>
+            </div>
+          </div>
+        </a>
+
+        <a href="categories/Chalet furnishings.html" class="cat-card cat-card-featured reveal" aria-label="Chalet furnishings">
+          <div class="cat-card-image aspect-[4/5] lg:aspect-[3/4]">
+            <img src="photos/Chalet furnishings.jpg" alt="Living Room" class="cat-img">
+            <div class="cat-card-overlay"></div>
+            <div class="cat-card-content">
+              <div class="text-[10px] uppercase tracking-[0.25em] text-[var(--accent-light)] mb-2">2 pieces</div>
+              <h3 class="font-display text-3xl lg:text-4xl font-light text-[var(--fg-light)] leading-tight">Chalet furnishings</h3>
+              <p class="cat-card-desc">Stylish and durable chalet furniture for comfortable and relaxing vacation spaces</p>
+              <span class="cat-card-cta">Explore Collection <i class="fa-solid fa-arrow-right ml-2"></i></span>
+            </div>
+          </div>
+        </a>
+
+        <a href="categories/libraries-accessories.html" class="cat-card cat-card-featured reveal" aria-label="Libraries & Accessories">
+          <div class="cat-card-image aspect-[4/5] lg:aspect-[3/4]">
+            <img src="photos/Libraries.jpg" alt="Libraries & Accessories" class="cat-img">
+            <div class="cat-card-overlay"></div>
+            <div class="cat-card-content">
+              <div class="text-[10px] uppercase tracking-[0.25em] text-[var(--accent-light)] mb-2">2 pieces</div>
+              <h3 class="font-display text-3xl lg:text-4xl font-light text-[var(--fg-light)] leading-tight">Libraries & Accessories</h3>
+              <p class="cat-card-desc">Vitrines, niches, and shelving to showcase your finest pieces.</p>
+              <span class="cat-card-cta">Explore Collection <i class="fa-solid fa-arrow-right ml-2"></i></span>
+            </div>
+          </div>
+        </a>
+
+        <a href="categories/restaurants-cafes.html" class="cat-card cat-card-featured reveal" aria-label="Restaurants & Cafes">
+          <div class="cat-card-image aspect-[4/5] lg:aspect-[3/4]">
+            <img src="photos/Restaurants Cafes.jpg" alt="Restaurants & Cafes" class="cat-img">
+            <div class="cat-card-overlay"></div>
+            <div class="cat-card-content">
+              <div class="text-[10px] uppercase tracking-[0.25em] text-[var(--accent-light)] mb-2">3 pieces</div>
+              <h3 class="font-display text-3xl lg:text-4xl font-light text-[var(--fg-light)] leading-tight">Restaurants & Cafes</h3>
+              <p class="cat-card-desc">Durable tables, chairs, and counters tailored for cafes and restaurants.</p>
+              <span class="cat-card-cta">Explore Collection <i class="fa-solid fa-arrow-right ml-2"></i></span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Special Offers -->
+  <section id="offers" data-nav-dark class="py-24 lg:py-32 bg-[var(--bg-dark)] text-[var(--fg-light)] relative grain">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6 reveal">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-12 h-px bg-[var(--accent-light)]"></span>
+            <span class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent-light)]">Limited Editions</span>
+          </div>
+          <h2 class="font-display text-5xl lg:text-7xl font-light leading-tight">
+            Special offers on<br><span class="font-display-italic">selected pieces.</span>
+          </h2>
+        </div>
+        <p class="text-[var(--muted-light)] max-w-md leading-relaxed">
+          Handpicked furniture at reduced prices for a limited time. Click any piece to view details and order.
+        </p>
+      </div>
+      <!--
+        EDIT OFFERS HERE — 3 featured products (change image, name, price, discount, link)
+      -->
+      <div id="offers-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <a href="products/vienna-canopy-bed.html" class="product-card product-card-dark reveal">
+          <div class="product-img-wrap">
+            <img src="photos/Master Bedrooms.jpg" alt="Vienna Canopy Bed" class="product-img">
+            <span class="offer-badge">-20%</span>
+            <div class="product-color-dots">
+              <span class="color-dot" style="background:#5c4033" title="Walnut"></span>
+              <span class="color-dot" style="background:#3b2f2f" title="Espresso"></span>
+              <span class="color-dot" style="background:#f5f0e8" title="Ivory White"></span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="text-[10px] uppercase tracking-wider text-[var(--muted-light)] mb-1">Master Bedrooms</div>
+            <h3 class="font-display text-xl mb-2">Vienna Canopy Bed</h3>
+            <p class="text-sm text-[var(--muted-light)] line-clamp-2 mb-4">Hand-joined canopy in European walnut with brass fittings. A timeless centerpiece for the principal suite.</p>
+            <div class="flex items-center justify-between pt-4 border-t border-[var(--border-dark)]">
+              <div>
+                <div class="font-display text-lg text-[var(--accent-light)]">EGP 33,600</div>
+                <div class="text-sm text-[var(--muted-light)] line-through">EGP 42,000</div>
+              </div>
+              <span class="text-xs uppercase tracking-wider text-[var(--accent-light)] font-semibold">View</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="products/toscana-dining-table.html" class="product-card product-card-dark reveal">
+          <div class="product-img-wrap">
+            <img src="photos/Dining Rooms.jpg" alt="Toscana Dining Table" class="product-img">
+            <span class="offer-badge">-20%</span>
+            <div class="product-color-dots">
+              <span class="color-dot" style="background:#c4a35a" title="Natural Oak"></span>
+              <span class="color-dot" style="background:#5c4033" title="Walnut"></span>
+              <span class="color-dot" style="background:#2c2416" title="Ebony"></span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="text-[10px] uppercase tracking-wider text-[var(--muted-light)] mb-1">Dining Rooms</div>
+            <h3 class="font-display text-xl mb-2">Toscana Dining Table</h3>
+            <p class="text-sm text-[var(--muted-light)] line-clamp-2 mb-4">Extending solid oak table seating 8 to 12 comfortably. Includes protective felt pads.</p>
+            <div class="flex items-center justify-between pt-4 border-t border-[var(--border-dark)]">
+              <div>
+                <div class="font-display text-lg text-[var(--accent-light)]">EGP 25,600</div>
+                <div class="text-sm text-[var(--muted-light)] line-through">EGP 32,000</div>
+              </div>
+              <span class="text-xs uppercase tracking-wider text-[var(--accent-light)] font-semibold">View</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="products/milano-corner-sofa.html" class="product-card product-card-dark reveal">
+          <div class="product-img-wrap">
+            <img src="photos/Corner Sofas.jpg" alt="Milano Corner Sofa" class="product-img">
+            <span class="offer-badge">-15%</span>
+            <div class="product-color-dots">
+              <span class="color-dot" style="background:#36454f" title="Charcoal"></span>
+              <span class="color-dot" style="background:#c9b99a" title="Sand"></span>
+              <span class="color-dot" style="background:#2d4a3e" title="Forest Green"></span>
+            </div>
+          </div>
+          <div class="p-5">
+            <div class="text-[10px] uppercase tracking-wider text-[var(--muted-light)] mb-1">Corner Sofas</div>
+            <h3 class="font-display text-xl mb-2">Milano Corner Sofa</h3>
+            <p class="text-sm text-[var(--muted-light)] line-clamp-2 mb-4">L-shaped modular corner sofa with down-fill cushions and removable covers.</p>
+            <div class="flex items-center justify-between pt-4 border-t border-[var(--border-dark)]">
+              <div>
+                <div class="font-display text-lg text-[var(--accent-light)]">EGP 32,725</div>
+                <div class="text-sm text-[var(--muted-light)] line-through">EGP 38,500</div>
+              </div>
+              <span class="text-xs uppercase tracking-wider text-[var(--accent-light)] font-semibold">View</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Craftsmanship -->
+
+
+  <!-- Visit Showroom -->
+  <section id="visit" class="contact-section py-24 lg:py-32 relative overflow-hidden">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div class="relative reveal order-2 lg:order-1">
+          <div class="contact-logo-wrap aspect-[5/4] overflow-hidden">
+            <img src="photos/logo.jpeg" alt="Adam's House Furniture" class="w-full h-full object-cover">
+          </div>
+        </div>
+        <div class="reveal order-1 lg:order-2">
+          <div class="contact-eyebrow flex items-center gap-3 mb-5">
+            <span class="w-10 h-px bg-[var(--accent)]"></span>
+            <span class="text-[11px] font-semibold tracking-[0.22em] uppercase text-[var(--accent)]">Contact</span>
+          </div>
+          <h2 class="contact-headline font-display text-[clamp(2.25rem,4.5vw,3.75rem)] font-light leading-[1.08] tracking-tight mb-12">
+            Come and <span class="font-display-italic">sit</span> in the work.
+          </h2>
+          <div class="contact-details-grid mb-12">
+            <div class="contact-field">
+              <span class="contact-label">Owner</span>
+              <span class="contact-value">Eng. Mahmoud El-Gamal</span>
+            </div>
+            <div class="contact-field">
+              <span class="contact-label">Phone</span>
+              <a href="tel:01123415353" class="contact-value contact-link">01123415353</a>
+            </div>
+            <div class="contact-field">
+              <span class="contact-label">Address</span>
+              <span class="contact-value">Alexandria, Sidi Bishr Qebli<br>181 Gamal Abd El-Nasir Rd</span>
+            </div>
+            <div class="contact-field">
+              <span class="contact-label">WhatsApp</span>
+              <a href="https://wa.me/201007910264" class="contact-value contact-link">01007910264</a>
+            </div>
+            <div class="contact-field">
+              <span class="contact-label">Landline</span>
+              <a href="tel:0333625264" class="contact-value contact-link">0333625264</a>
+            </div>
+            <div class="contact-field">
+              <span class="contact-label">Follow Us</span>
+              <div class="contact-social">
+                <a href="https://www.facebook.com/share/18sYoXH8FB/" aria-label="Facebook" class="contact-social-link"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/adams_house_furnitures?igsh=MWNvZ2h5N2IyaTc3Yw==" aria-label="Instagram" class="contact-social-link"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@eng.mahmoud_elgamal" aria-label="TikTok" class="contact-social-link"><i class="fa-brands fa-tiktok"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="contact-actions">
+            <a href="tel:01123415353" class="btn-primary">
+              <span>Call Now</span>
+              <i class="fa-solid fa-phone"></i>
+            </a>
+            <a href="https://wa.me/201007910264" class="btn-ghost contact-whatsapp-btn">
+              <span>WhatsApp</span>
+              <i class="fa-brands fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer data-nav-dark class="bg-[var(--bg-dark)] text-[var(--fg-light)] pt-20 pb-8 relative grain">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div>
+          <div class="flex items-center gap-2 mb-6">
+            <span class="font-display text-2xl">Adam's House</span>
+          </div>
+          <p class="text-[var(--muted-light)] leading-relaxed text-sm mb-6">Hand-made furniture from Alexandria. Since 2010.</p>
+          <div class="flex gap-3">
+            <a href="https://www.facebook.com/share/18sYoXH8FB/" aria-label="Facebook"  
+                class="w-10 h-10 border border-[var(--fg)] flex items-center justify-center hover:bg-[var(--fg)] hover:text-[var(--fg-light)] transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/adams_house_furnitures?igsh=MWNvZ2h5N2IyaTc3Yw==" aria-label="Instagram"  
+                class="w-10 h-10 border border-[var(--fg)] flex items-center justify-center hover:bg-[var(--fg)] hover:text-[var(--fg-light)] transition-colors"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@eng.mahmoud_elgamal" aria-label="TikTok" 
+                class="w-10 h-10 border border-[var(--fg)] flex items-center justify-center hover:bg-[var(--fg)] hover:text-[var(--fg-light)] transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-xs uppercase tracking-wider text-[var(--muted-light)] mb-5">Collections</h4>
+          <ul class="space-y-3 text-sm" id="footer-cats">
+            <li><a href="categories/master-bedrooms.html" class="hover:text-[var(--accent-light)] transition-colors">Master Bedrooms</a></li>
+            <li><a href="categories/childrens-rooms.html" class="hover:text-[var(--accent-light)] transition-colors">Children's Rooms</a></li>
+            <li><a href="categories/dining-rooms.html" class="hover:text-[var(--accent-light)] transition-colors">Dining Rooms</a></li>
+            <li><a href="categories/salons.html" class="hover:text-[var(--accent-light)] transition-colors">Salons</a></li>
+            <li><a href="categories/corner-sofas.html" class="hover:text-[var(--accent-light)] transition-colors">Corner Sofas</a></li>
+            <li><a href="categories/living-room.html" class="hover:text-[var(--accent-light)] transition-colors">Living Room</a></li>
+            <li><a href="categories/libraries-accessories.html" class="hover:text-[var(--accent-light)] transition-colors">Libraries & Accessories</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xs uppercase tracking-wider text-[var(--muted-light)] mb-5">Atelier</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="atelier.html#The Workshop" class="hover:text-[var(--accent-light)] transition-colors">The Workshop</a></li>
+            <li><a href="atelier.html#The Process" class="hover:text-[var(--accent-light)] transition-colors">The Process</a></li>
+            <li><a href="atelier.html#Materials" class="hover:text-[var(--accent-light)] transition-colors">Materials</a></li>
+            <li><a href="atelier.html#Timeline" class="hover:text-[var(--accent-light)] transition-colors">Our History</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xs uppercase tracking-wider text-[var(--muted-light)] mb-5">Contact</h4>
+          <ul class="space-y-3 text-sm">
+            <li>Eng. Mahmoud El-Gamal</li>
+            <li>01123415353</li>
+            <li>Alexandria, Sidi Bishr Qebli, 181 Gamal Abd El-Nasir</li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 border-t border-[var(--border-dark)] flex flex-col md:flex-row justify-between gap-4 text-xs text-[var(--muted-light)]">
+        <div>© 2026 Adam's House. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container" class="fixed top-6 right-6 z-[2000]"></div>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/translate.js"></script>
+</body>
+</html>
