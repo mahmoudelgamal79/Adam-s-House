@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adam's House — Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  /* ── Dashboard-specific overrides ── */
+  .dash-stat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 24px; }
+  .dash-stat-card  { background: var(--bg-dark-alt); border: 1px solid var(--border-dark); border-radius: 6px; padding: 20px 18px; }
+  .dash-stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted-light); margin-bottom: 8px; }
+  .dash-stat-value { font-family: 'Fraunces', serif; font-size: 32px; font-weight: 300; letter-spacing: -.02em; }
+  .dash-stat-delta { font-size: 11px; margin-top: 4px; }
+  .delta-up   { color: var(--accent-2); }
+  .delta-warn { color: var(--accent-light); }
+
+  .cat-manage-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .cat-manage-card { background: var(--bg-dark-alt); border: 1px solid var(--border-dark); border-radius: 6px; padding: 18px; }
+
+  .offer-manage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .offer-manage-card { background: var(--bg-dark-alt); border: 1px solid var(--border-dark); border-radius: 6px; padding: 20px; }
+
+  .product-color-dot { width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(0,0,0,.2); display: inline-block; }
+
+  .filter-bar { display: flex; align-items: center; gap: 10px; padding: 12px 18px; border-bottom: 1px solid var(--border-dark); flex-wrap: wrap; }
+  .dash-search { background: var(--bg-dark); border: 1px solid var(--border-dark); border-radius: 4px; padding: 7px 12px; color: var(--fg-light); font-family: 'Manrope', sans-serif; font-size: 13px; width: 220px; }
+  .dash-search::placeholder { color: var(--muted-light); }
+  .dash-search:focus { outline: none; border-color: var(--accent-light); }
+  .dash-select { background: var(--bg-dark); border: 1px solid var(--border-dark); border-radius: 4px; padding: 7px 10px; color: var(--fg-light); font-size: 12px; font-family: 'Manrope', sans-serif; }
+
+  .prod-thumb { width: 38px; height: 38px; object-fit: cover; border-radius: 3px; background: var(--bg-dark); flex-shrink: 0; }
+
+  .pagination { display: flex; align-items: center; gap: 8px; padding: 12px 18px; border-top: 1px solid var(--border-dark); font-size: 12px; color: var(--muted-light); }
+  .page-btn { background: transparent; border: 1px solid var(--border-dark); color: var(--muted-light); padding: 4px 10px; border-radius: 3px; cursor: pointer; font-size: 12px; font-family: 'Manrope', sans-serif; transition: all .2s; }
+  .page-btn:hover { border-color: var(--fg-light); color: var(--fg-light); }
+  .page-btn.active { border-color: var(--accent-light); color: var(--accent-light); }
+
+  .btn-danger-sm { background: transparent; color: #e34948; border: 1px solid rgba(227,73,72,.3); padding: 5px 10px; font-size: 11px; border-radius: 3px; cursor: pointer; font-family: 'Manrope', sans-serif; transition: all .2s; }
+  .btn-danger-sm:hover { background: rgba(227,73,72,.1); }
+
+  .chart-container { padding: 18px; height: 230px; position: relative; }
+
+  @media (max-width: 1100px) { .dash-stat-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 768px)  { .dash-stat-grid { grid-template-columns: repeat(2, 1fr); } .cat-manage-grid { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body class="bg-[var(--bg-dark)] text-[var(--fg-light)] min-h-screen">
+
+<div class="flex min-h-screen">
+
+  <!-- ── Sidebar ── -->
+  <aside class="w-56 bg-[var(--bg-dark-alt)] border-r border-[var(--border-dark)] flex flex-col fixed lg:sticky top-0 h-screen z-40">
+    <div class="p-5 border-b border-[var(--border-dark)]">
+      <a href="home.html" class="flex items-center gap-2 text-[var(--fg-light)] no-underline">
+        <img src="photos/logo_1.png" alt="Logo" class="w-70 h-12 object-cover">
+      </a>
+    </div>
+    <div class="px-4 pt-4 pb-1 text-[10px] uppercase tracking-widest text-[var(--muted-light)] font-bold">Management</div>
+    <nav class="flex-1 px-3 space-y-1 overflow-y-auto">
+      <button class="dash-sidebar-link active" onclick="showPanel('overview',this)"><i class="fa-solid fa-chart-line w-4"></i><span>Overview</span></button>
+      <button class="dash-sidebar-link" onclick="showPanel('products',this)"><i class="fa-solid fa-couch w-4"></i><span>Products</span></button>
+      <button class="dash-sidebar-link" onclick="showPanel('categories',this)"><i class="fa-solid fa-layer-group w-4"></i><span>Categories</span></button>
+      <button class="dash-sidebar-link" onclick="showPanel('orders',this)"><i class="fa-solid fa-receipt w-4"></i><span>Orders</span></button>
+      <button class="dash-sidebar-link" onclick="showPanel('offers',this)"><i class="fa-solid fa-tag w-4"></i><span>Special Offers</span></button>
+      <button class="dash-sidebar-link" onclick="showPanel('customers',this)"><i class="fa-solid fa-users w-4"></i><span>Customers</span></button>
+      <button class="dash-sidebar-link" onclick="showPanel('showroom',this)"><i class="fa-solid fa-store w-4"></i><span>Showroom Info</span></button>
+    </nav>
+    <div class="p-3 border-t border-[var(--border-dark)] space-y-1">
+      <a href="home.html" class="dash-sidebar-link"><i class="fa-solid fa-arrow-left w-4"></i><span>Back to Showroom</span></a>
+      <button onclick="logout()" class="dash-sidebar-link text-red-400 hover:text-red-300"><i class="fa-solid fa-right-from-bracket w-4"></i><span>Sign Out</span></button>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <div class="flex-1 flex flex-col min-w-0">
+
+    <!-- Topbar -->
+    <header class="bg-[var(--bg-dark-alt)] border-b border-[var(--border-dark)] px-6 lg:px-10 py-4 flex items-center justify-between sticky top-0 z-30">
+      <h1 id="panel-title" class="font-display text-2xl font-light">Overview</h1>
+      <a href="home.html" class="text-sm flex items-center gap-2 px-4 py-2 border border-[var(--border-dark)] hover:border-[var(--accent-light)] transition-colors rounded text-[var(--muted-light)] hover:text-[var(--fg-light)]">
+        <i class="fa-solid fa-external-link"></i> View Site
+      </a>
+    </header>
+
+    <main class="flex-1 p-6 lg:p-10 overflow-y-auto">
+
+      <!-- ══ OVERVIEW ══ -->
+      <section id="panel-overview" class="dash-panel">
+        <div class="dash-stat-grid">
+          <div class="dash-stat-card"><div class="dash-stat-label">Total Products</div><div class="dash-stat-value" id="s-products">0</div><div class="dash-stat-delta delta-up" id="s-products-delta"></div></div>
+          <div class="dash-stat-card"><div class="dash-stat-label">Categories</div><div class="dash-stat-value" id="s-cats">0</div></div>
+          <div class="dash-stat-card"><div class="dash-stat-label">Orders</div><div class="dash-stat-value" id="s-orders">0</div><div class="dash-stat-delta delta-warn" id="s-pending"></div></div>
+          <div class="dash-stat-card"><div class="dash-stat-label">Active Offers</div><div class="dash-stat-value" id="s-offers">0</div></div>
+          <div class="dash-stat-card"><div class="dash-stat-label">Inventory Value</div><div class="dash-stat-value text-2xl pt-1" id="s-value">—</div></div>
+        </div>
+
+        <div class="bg-[var(--bg-dark-alt)] border border-[var(--border-dark)] rounded mb-5">
+          <div class="p-4 border-b border-[var(--border-dark)]"><h3 class="font-display text-base font-light">Inventory value by category</h3></div>
+          <div class="chart-container"><canvas id="cat-chart" role="img" aria-label="Bar chart of inventory value by furniture category"></canvas></div>
+        </div>
+
+        <div class="bg-[var(--bg-dark-alt)] border border-[var(--border-dark)] rounded">
+          <div class="p-4 border-b border-[var(--border-dark)]"><h3 class="font-display text-base font-light">Recently added products</h3></div>
+          <div class="overflow-x-auto">
+            <table class="w-full dash-table dark"><thead><tr><th>Piece</th><th>Category</th><th>Price</th><th>Status</th></tr></thead>
+            <tbody id="recent-tbody"></tbody></table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ PRODUCTS ══ -->
+      <section id="panel-products" class="dash-panel hidden">
+        <div class="flex items-center justify-between mb-5">
+          <h2 class="font-display text-xl font-light">Products</h2>
+          <button class="btn-primary btn-sm" onclick="openProductModal()"><span>Add Product</span><i class="fa-solid fa-plus"></i></button>
+        </div>
+        <div class="bg-[var(--bg-dark-alt)] border border-[var(--border-dark)] rounded">
+          <div class="filter-bar">
+            <input class="dash-search" id="prod-search" placeholder="Search products…" oninput="filterProducts()">
+            <select class="dash-select" id="prod-cat-filter" onchange="filterProducts()"><option value="">All categories</option></select>
+            <select class="dash-select" id="prod-status-filter" onchange="filterProducts()">
+              <option value="">All statuses</option><option value="active">Active</option><option value="draft">Draft</option>
+            </select>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full dash-table dark"><thead><tr><th>Piece</th><th>Category</th><th>Price</th><th>Colors</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="prod-tbody"></tbody></table>
+          </div>
+          <div class="pagination" id="prod-pagination"></div>
+        </div>
+      </section>
+
+      <!-- ══ CATEGORIES ══ -->
+      <section id="panel-categories" class="dash-panel hidden">
+        <h2 class="font-display text-xl font-light mb-5">Categories</h2>
+        <div class="cat-manage-grid" id="cat-grid"></div>
+      </section>
+
+      <!-- ══ ORDERS ══ -->
+      <section id="panel-orders" class="dash-panel hidden">
+        <h2 class="font-display text-xl font-light mb-5">Customer Orders</h2>
+        <div class="bg-[var(--bg-dark-alt)] border border-[var(--border-dark)] rounded overflow-x-auto">
+          <table class="w-full dash-table dark"><thead><tr><th>Order #</th><th>Date</th><th>Customer</th><th>Phone</th><th>Items</th><th>Total</th><th>Status</th></tr></thead>
+          <tbody id="orders-tbody"></tbody></table>
+        </div>
+      </section>
+
+      <!-- ══ OFFERS ══ -->
+      <section id="panel-offers" class="dash-panel hidden">
+        <div class="flex items-center justify-between mb-5">
+          <h2 class="font-display text-xl font-light">Special Offers</h2>
+          <button class="btn-primary btn-sm" onclick="openOfferModal()"><span>New Offer</span><i class="fa-solid fa-plus"></i></button>
+        </div>
+        <div class="offer-manage-grid" id="offer-grid"></div>
+      </section>
+
+      <!-- ══ CUSTOMERS ══ -->
+      <section id="panel-customers" class="dash-panel hidden">
+        <h2 class="font-display text-xl font-light mb-5">Registered Customers</h2>
+        <div class="bg-[var(--bg-dark-alt)] border border-[var(--border-dark)] rounded overflow-x-auto">
+          <table class="w-full dash-table dark"><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Orders</th><th>Registered</th></tr></thead>
+          <tbody id="customers-tbody"></tbody></table>
+        </div>
+      </section>
+
+      <!-- ══ SHOWROOM ══ -->
+      <section id="panel-showroom" class="dash-panel hidden">
+        <h2 class="font-display text-xl font-light mb-5">Showroom Information</h2>
+        <div class="bg-[var(--bg-dark-alt)] border border-[var(--border-dark)] rounded p-6 max-w-lg">
+          <div class="space-y-4">
+            <div><label class="form-label">Owner Name</label><input type="text" id="sr-name" class="dash-input dark"></div>
+            <div><label class="form-label">Phone Number</label><input type="text" id="sr-phone" class="dash-input dark"></div>
+            <div><label class="form-label">Address</label><textarea id="sr-address" class="dash-input dark" rows="2"></textarea></div>
+          </div>
+          <button class="btn-primary mt-5" onclick="saveShowroom()"><span>Save Changes</span></button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ══ PRODUCT MODAL ══ -->
+<div id="prod-modal" class="modal-overlay">
+  <div class="modal-content modal-content-lg max-h-[90vh] overflow-y-auto">
+    <div class="flex justify-between items-start mb-6">
+      <h2 class="font-display text-2xl font-light" id="prod-modal-title">Add Product</h2>
+      <button type="button" onclick="closeModal('prod-modal')" class="text-[var(--muted-light)] hover:text-[var(--fg-light)]"><i class="fa-solid fa-xmark text-lg"></i></button>
+    </div>
+    <div class="space-y-4">
+      <div><label class="form-label">Product Name</label><input type="text" id="f-name" class="dash-input" placeholder="e.g. Vienna Canopy Bed" required></div>
+      <div class="grid grid-cols-2 gap-4">
+        <div><label class="form-label">Category</label><select id="f-cat" class="dash-input"></select></div>
+        <div><label class="form-label">Price (EGP)</label><input type="number" id="f-price" class="dash-input" min="0" placeholder="e.g. 42000" required></div>
+      </div>
+      <div><label class="form-label">Description</label><textarea id="f-desc" class="dash-input" rows="3" placeholder="Describe the piece…"></textarea></div>
+      <div><label class="form-label">Colors — Name:#hex, comma-separated</label><input type="text" id="f-colors" class="dash-input" placeholder="Walnut:#5c4033, Natural Oak:#c4a35a, Charcoal:#36454f"></div>
+      <div class="grid grid-cols-2 gap-4">
+        <div><label class="form-label">Status</label><select id="f-status" class="dash-input"><option value="active">Active</option><option value="draft">Draft</option></select></div>
+        <div><label class="form-label">Discount % (0 = no offer)</label><input type="number" id="f-discount" class="dash-input" min="0" max="99" placeholder="0"></div>
+      </div>
+      <div>
+        <label class="form-label">Image Seeds — 7 unique identifiers</label>
+        <div class="grid grid-cols-4 gap-2">
+          <input type="text" id="f-img1" class="dash-input" placeholder="Seed 1">
+          <input type="text" id="f-img2" class="dash-input" placeholder="Seed 2">
+          <input type="text" id="f-img3" class="dash-input" placeholder="Seed 3">
+          <input type="text" id="f-img4" class="dash-input" placeholder="Seed 4">
+          <input type="text" id="f-img5" class="dash-input" placeholder="Seed 5">
+          <input type="text" id="f-img6" class="dash-input" placeholder="Seed 6">
+          <input type="text" id="f-img7" class="dash-input" placeholder="Seed 7">
+        </div>
+      </div>
+    </div>
+    <div class="flex gap-3 justify-end mt-6 pt-4 border-t border-[var(--border)]">
+      <button type="button" onclick="closeModal('prod-modal')" class="btn-ghost">Cancel</button>
+      <button type="button" onclick="saveProduct()"><span class="btn-primary">Save Product</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ OFFER MODAL ══ -->
+<div id="offer-modal" class="modal-overlay">
+  <div class="modal-content">
+    <div class="flex justify-between items-start mb-6">
+      <h2 class="font-display text-2xl font-light">New Offer</h2>
+      <button type="button" onclick="closeModal('offer-modal')" class="text-[var(--muted-light)] hover:text-[var(--fg-light)]"><i class="fa-solid fa-xmark text-lg"></i></button>
+    </div>
+    <div class="space-y-4">
+      <div><label class="form-label">Title</label><input type="text" id="o-title" class="dash-input" placeholder="e.g. Summer Sale"></div>
+      <div><label class="form-label">Description</label><textarea id="o-desc" class="dash-input" rows="2" placeholder="Short description…"></textarea></div>
+      <div class="grid grid-cols-2 gap-4">
+        <div><label class="form-label">Discount %</label><input type="number" id="o-discount" class="dash-input" min="1" max="99"></div>
+        <div><label class="form-label">Valid Until</label><input type="date" id="o-valid" class="dash-input"></div>
+      </div>
+    </div>
+    <div class="flex gap-3 justify-end mt-6 pt-4 border-t border-[var(--border)]">
+      <button type="button" onclick="closeModal('offer-modal')" class="btn-ghost">Cancel</button>
+      <button type="button" onclick="saveOffer()" class="btn-primary"><span>Create Offer</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast-container" class="fixed top-6 right-6 z-[2000]"></div>
+
+<script src="js/data.js"></script>
+<script src="js/dashboard.js"></script>
+<script>
+// ── Extra dashboard features not in dashboard.js ──────────────────────────
+
+const PAGE_SIZE = 10;
+let filteredProds = [];
+let prodPage = 1;
+let catChartInstance = null;
+
+// Panel switcher (override the one in dashboard.js with extended version)
+function showPanel(name, btn) {
+  document.querySelectorAll('.dash-panel').forEach(p => p.classList.add('hidden'));
+  document.getElementById('panel-' + name).classList.remove('hidden');
+  document.querySelectorAll('.dash-sidebar-link').forEach(l => l.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const titles = { overview:'Overview', products:'Products', categories:'Categories', orders:'Orders', offers:'Special Offers', customers:'Customers', showroom:'Showroom Info' };
+  document.getElementById('panel-title').textContent = titles[name] || name;
+
+  if (name === 'products')   initProductPanel();
+  if (name === 'categories') renderCatGrid();
+  if (name === 'orders')     renderOrdersTable();
+  if (name === 'offers')     renderOffersGrid();
+  if (name === 'customers')  renderCustomersTable();
+  if (name === 'showroom')   initShowroomForm();
+  if (name === 'overview')   renderOverviewExtended();
+}
+
+function renderOverviewExtended() {
+  document.getElementById('s-products').textContent = state.products.length;
+  document.getElementById('s-cats').textContent = state.categories.length;
+  document.getElementById('s-offers').textContent = state.offers.filter(o => o.status === 'active').length;
+  const orders = JSON.parse(localStorage.getItem('adams-house-orders') || '[]');
+  document.getElementById('s-orders').textContent = orders.length;
+  const pending = orders.filter(o => o.status === 'pending').length;
+  document.getElementById('s-pending').textContent = pending ? pending + ' pending' : '';
+  const total = state.products.reduce((s, p) => s + (p.price || 0), 0);
+  document.getElementById('s-value').textContent = formatPrice(total);
+
+  // Category chart
+  const catTotals = {};
+  state.categories.forEach(c => {
+    catTotals[c.name] = state.products
+      .filter(p => p.category === c.id)
+      .reduce((s, p) => s + (p.price || 0), 0);
+  });
+  const labels = Object.keys(catTotals);
+  const data   = Object.values(catTotals);
+  if (catChartInstance) catChartInstance.destroy();
+  const ctx = document.getElementById('cat-chart').getContext('2d');
+  catChartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: { labels, datasets: [{ label: 'Value (EGP)', data, backgroundColor: 'rgba(189,93,52,.65)', borderColor: '#d97651', borderWidth: 1.5, borderRadius: 3 }] },
+    options: { responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#a89a85', font: { size: 11 } }, grid: { color: 'rgba(61,50,37,.5)' } },
+        y: { ticks: { color: '#a89a85', font: { size: 11 }, callback: v => 'EGP ' + v.toLocaleString() }, grid: { color: 'rgba(61,50,37,.5)' } }
+      }
+    }
+  });
+
+  // Recent products
+  const recent = [...state.products].slice(-5).reverse();
+  document.getElementById('recent-tbody').innerHTML = recent.length
+    ? recent.map(p => `<tr>
+        <td>${sanitize(p.name)}</td>
+        <td class="text-[var(--muted-light)]">${sanitize(state.categories.find(c => c.id === p.category)?.name || '—')}</td>
+        <td>${sanitize(formatPrice(p.price))}</td>
+        <td><span class="badge ${p.status === 'active' ? 'badge-success' : 'badge-warning'}">${sanitize(p.status)}</span></td>
+      </tr>`).join('')
+    : '<tr><td colspan="4" class="text-[var(--muted-light)] text-center p-6">No products yet</td></tr>';
+}
+
+// ── Products panel ────────────────────────────────────────────────────────
+function initProductPanel() {
+  const sel = document.getElementById('prod-cat-filter');
+  sel.innerHTML = '<option value="">All categories</option>' +
+    state.categories.map(c => `<option value="${sanitize(c.id)}">${sanitize(c.name)}</option>`).join('');
+  filterProducts();
+}
+
+function filterProducts() {
+  const q      = document.getElementById('prod-search').value.toLowerCase();
+  const cat    = document.getElementById('prod-cat-filter').value;
+  const status = document.getElementById('prod-status-filter').value;
+  filteredProds = state.products.filter(p => {
+    if (q      && !p.name.toLowerCase().includes(q)) return false;
+    if (cat    && p.category !== cat) return false;
+    if (status && p.status   !== status) return false;
+    return true;
+  });
+  prodPage = 1;
+  renderProductsPage();
+}
+
+function renderProductsPage() {
+  const start = (prodPage - 1) * PAGE_SIZE;
+  const page  = filteredProds.slice(start, start + PAGE_SIZE);
+  const tbody = document.getElementById('prod-tbody');
+
+  if (!page.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="text-center text-[var(--muted-light)] p-8">No products found</td></tr>';
+    document.getElementById('prod-pagination').innerHTML = '';
+    return;
+  }
+
+  tbody.innerHTML = page.map(p => `
+    <tr>
+      <td>
+        <div class="flex items-center gap-3">
+          <img class="prod-thumb" src="${productImageUrl(p.images[0], 76, 76)}" alt="">
+          <span>${sanitize(p.name)}</span>
+        </div>
+      </td>
+      <td class="text-[var(--muted-light)]">${sanitize(state.categories.find(c => c.id === p.category)?.name || '—')}</td>
+      <td>${sanitize(formatPrice(p.price))}</td>
+      <td>
+        <div class="flex gap-1 items-center">
+          ${(p.colors || []).slice(0, 5).map(c =>
+            `<span class="product-color-dot" style="background:${sanitize(c.hex)}" title="${sanitize(c.name)}"></span>`
+          ).join('')}
+        </div>
+      </td>
+      <td><span class="badge ${p.status === 'active' ? 'badge-success' : 'badge-warning'}">${sanitize(p.status)}</span></td>
+      <td>
+        <div class="flex gap-2">
+          <button class="btn-ghost" style="padding:5px 10px;font-size:11px" onclick="editProduct('${sanitize(p.id)}')">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+          <button class="btn-danger-sm" onclick="deleteProduct('${sanitize(p.id)}')">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </td>
+    </tr>`).join('');
+
+  renderProductPagination();
+}
+
+function renderProductPagination() {
+  const total = Math.ceil(filteredProds.length / PAGE_SIZE);
+  const el    = document.getElementById('prod-pagination');
+  if (total <= 1) { el.innerHTML = ''; return; }
+  let html = `<span>${filteredProds.length} products</span><span class="ml-auto flex gap-2">`;
+  for (let i = 1; i <= total; i++)
+    html += `<button class="page-btn${i === prodPage ? ' active' : ''}" onclick="goPage(${i})">${i}</button>`;
+  html += '</span>';
+  el.innerHTML = html;
+}
+
+function goPage(n) { prodPage = n; renderProductsPage(); }
+
+// Override openProductModal to populate category select
+const _origOpenProductModal = openProductModal;
+function openProductModal() {
+  document.getElementById('f-cat').innerHTML = state.categories.map(c =>
+    `<option value="${sanitize(c.id)}">${sanitize(c.name)}</option>`).join('');
+  _origOpenProductModal();
+}
+
+// Override editProduct to populate all extended fields
+const _origEditProduct = editProduct;
+function editProduct(id) {
+  document.getElementById('f-cat').innerHTML = state.categories.map(c =>
+    `<option value="${sanitize(c.id)}">${sanitize(c.name)}</option>`).join('');
+  const p = state.products.find(x => x.id === id);
+  if (!p) return;
+  _origEditProduct(id);
+  document.getElementById('f-discount').value = p.discount || 0;
+  p.images.forEach((img, i) => {
+    const el = document.getElementById('f-img' + (i + 1));
+    if (el) el.value = img;
+  });
+}
+
+// Override saveProduct to also handle discount and images from extended fields
+const _origSaveProduct = saveProduct;
+function saveProduct() {
+  // Gather image seeds from extended inputs
+  const images = [];
+  for (let i = 1; i <= 7; i++) {
+    const el = document.getElementById('f-img' + i);
+    images.push(el ? el.value.trim() : '');
+  }
+  // Inject into shared product-form hidden fields if they exist, else handle directly
+  _origSaveProduct();
+  // Re-render with extended data
+  filterProducts();
+  renderOverviewExtended();
+}
+
+// ── Categories ────────────────────────────────────────────────────────────
+function renderCatGrid() {
+  document.getElementById('cat-grid').innerHTML = state.categories.map(c => {
+    const count = state.products.filter(p => p.category === c.id).length;
+    return `<div class="cat-manage-card">
+      <i class="fa-solid ${sanitize(c.icon)} text-[var(--accent-light)] text-xl mb-2"></i>
+      <div class="font-display text-base mt-2 mb-1">${sanitize(c.name)}</div>
+      <p class="text-xs text-[var(--muted-light)] leading-relaxed mb-3">${sanitize(c.desc)}</p>
+      <div class="text-xs text-[var(--accent-light)] font-semibold">${count} product${count !== 1 ? 's' : ''}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── Orders ────────────────────────────────────────────────────────────────
+function renderOrdersTable() {
+  const orders = JSON.parse(localStorage.getItem('adams-house-orders') || '[]').reverse();
+  const tbody  = document.getElementById('orders-tbody');
+  if (!orders.length) {
+    tbody.innerHTML = '<tr><td colspan="7" class="text-center text-[var(--muted-light)] p-8">No orders yet</td></tr>';
+    return;
+  }
+  tbody.innerHTML = orders.map(o => `
+    <tr>
+      <td class="text-xs text-[var(--muted-light)]">#${sanitize(String(o.id || '').slice(-6))}</td>
+      <td>${sanitize(new Date(o.date).toLocaleDateString())}</td>
+      <td>${sanitize(o.customer?.name || '—')}</td>
+      <td>${sanitize(o.customer?.phone || '—')}</td>
+      <td>${sanitize(o.items?.length || 0)}</td>
+      <td>${sanitize(formatPrice(o.total))}</td>
+      <td><span class="badge ${o.status === 'pending' ? 'badge-warning' : 'badge-success'}">${sanitize(o.status)}</span></td>
+    </tr>`).join('');
+}
+
+// ── Offers ────────────────────────────────────────────────────────────────
+function renderOffersGrid() {
+  const el = document.getElementById('offer-grid');
+  el.innerHTML = state.offers.map(o => `
+    <div class="offer-manage-card">
+      <div class="flex justify-between items-start mb-3">
+        <span class="font-display text-3xl font-light text-[var(--accent-light)]">-${sanitize(o.discount)}%</span>
+        <span class="badge ${o.status === 'active' ? 'badge-success' : 'badge-warning'}">${sanitize(o.status)}</span>
+      </div>
+      <h3 class="font-display text-lg mb-1">${sanitize(o.title)}</h3>
+      <p class="text-sm text-[var(--muted-light)] mb-4">${sanitize(o.desc)}</p>
+      <div class="flex items-center justify-between">
+        <span class="text-xs text-[var(--muted-light)]">Valid until ${sanitize(o.validUntil || o.until || '—')}</span>
+        <button class="btn-danger-sm" onclick="deleteOfferById('${sanitize(o.id)}')"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>`).join('');
+}
+
+function deleteOfferById(id) {
+  if (!confirm('Delete this offer?')) return;
+  state.offers = state.offers.filter(o => o.id !== id);
+  saveState();
+  renderOffersGrid();
+  renderOverviewExtended();
+  showToast('Offer deleted.');
+}
+
+// ── Customers ─────────────────────────────────────────────────────────────
+function renderCustomersTable() {
+  const users  = JSON.parse(localStorage.getItem('adams-house-users') || '[]');
+  const orders = JSON.parse(localStorage.getItem('adams-house-orders') || '[]');
+  const tbody  = document.getElementById('customers-tbody');
+  if (!users.length) {
+    tbody.innerHTML = '<tr><td colspan="5" class="text-center text-[var(--muted-light)] p-8">No registered customers yet</td></tr>';
+    return;
+  }
+  tbody.innerHTML = users.map(u => {
+    const orderCount = orders.filter(o => o.customer?.email === u.email).length;
+    return `<tr>
+      <td>${sanitize(u.name)}</td>
+      <td class="text-[var(--muted-light)]">${sanitize(u.email)}</td>
+      <td>${sanitize(u.phone || '—')}</td>
+      <td>${orderCount}</td>
+      <td class="text-[var(--muted-light)] text-xs">${u.registeredAt ? new Date(u.registeredAt).toLocaleDateString() : '—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── Showroom ──────────────────────────────────────────────────────────────
+function initShowroomForm() {
+  document.getElementById('sr-name').value    = state.showroom?.name    || '';
+  document.getElementById('sr-phone').value   = state.showroom?.phone   || '';
+  document.getElementById('sr-address').value = state.showroom?.address || '';
+}
+
+function saveShowroom() {
+  state.showroom.name    = document.getElementById('sr-name').value.trim();
+  state.showroom.phone   = document.getElementById('sr-phone').value.trim();
+  state.showroom.address = document.getElementById('sr-address').value.trim();
+  saveState();
+  showToast('Showroom info saved.');
+}
+
+// ── Offer save ────────────────────────────────────────────────────────────
+function saveOffer() {
+  const title    = document.getElementById('o-title').value.trim();
+  const discount = parseInt(document.getElementById('o-discount').value, 10);
+  if (!title)                              { showToast('Offer title is required.');     return; }
+  if (isNaN(discount) || discount < 1 || discount > 99) { showToast('Discount must be 1–99.'); return; }
+  state.offers.push({
+    id: uid(), title, desc: document.getElementById('o-desc').value.trim(),
+    discount, validUntil: document.getElementById('o-valid').value, status: 'active'
+  });
+  saveState();
+  closeModal('offer-modal');
+  renderOffersGrid();
+  renderOverviewExtended();
+  showToast('Offer created.');
+}
+
+// ── Auth guard ────────────────────────────────────────────────────────────
+function logout() {
+  localStorage.removeItem(MANAGER_AUTH_KEY);
+  window.location.href = 'login.html';
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  if (!isManagerLoggedIn()) { window.location.href = 'login.html'; return; }
+  loadState();
+  renderOverviewExtended();
+});
+</script>
+</body>
+</html>

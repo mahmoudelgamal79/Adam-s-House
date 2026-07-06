@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adam's House — My Account</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[var(--bg)]">
+
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/85 backdrop-blur-md border-b border-[var(--border)]/50">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-5 flex items-center justify-between">
+      <a href="home.html" class="flex items-center gap-2">
+        <img src="photos/logo_1.png" alt="Logo" class="w-70 h-12 object-cover">
+      </a>
+      <div class="hidden lg:flex items-center gap-10 text-sm font-medium">
+        <a href="home.html#categories" class="nav-link">Collections</a>
+        <a href="home.html#offers" class="nav-link">Offers</a>
+        <a href="home.html#visit" class="nav-link">Contact</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="cart.html" class="relative text-xl hover:text-[var(--accent)] transition-colors nav-icon-btn" title="Cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="absolute -top-2 -right-2 bg-[var(--accent)] text-[var(--fg-light)] text-[10px] w-4 h-4 rounded-full flex items-center justify-center cart-count">0</span>
+        </a>
+        <a href="account.html" data-user-link class="nav-icon-btn text-xl text-[var(--accent)]" title="My account">
+          <i class="fa-solid fa-circle-user"></i>
+        </a>
+        <button id="mobile-menu-btn" class="lg:hidden text-xl"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+  </nav>
+
+  
+  <section class="pt-32 pb-24">
+    <div class="max-w-[700px] mx-auto px-6">
+      <h1 class="font-display text-4xl font-light mb-2">My Account</h1>
+      <p class="text-[var(--muted)] mb-10">Manage your profile and orders.</p>
+
+      <div id="account-guest" class="hidden bg-[var(--bg-alt)] border border-[var(--border)] p-8 text-center">
+        <i class="fa-solid fa-circle-user text-5xl text-[var(--muted)] mb-4"></i>
+        <p class="mb-6 text-[var(--muted)]">Please sign in to view your account.</p>
+        <a href="customer-login.html" class="btn-primary"><span>Sign In</span></a>
+      </div>
+
+      <div id="account-panel" class="hidden space-y-6">
+        <div class="bg-[var(--bg-alt)] border border-[var(--border)] p-6">
+          <h2 class="font-display text-xl mb-4">Profile</h2>
+          <dl class="space-y-3 text-sm">
+            <div><dt class="text-[var(--muted)] uppercase tracking-wider text-xs mb-1">Name</dt><dd id="acc-name" class="font-medium text-lg"></dd></div>
+            <div><dt class="text-[var(--muted)] uppercase tracking-wider text-xs mb-1">Email</dt><dd id="acc-email"></dd></div>
+            <div><dt class="text-[var(--muted)] uppercase tracking-wider text-xs mb-1">Phone</dt><dd id="acc-phone"></dd></div>
+          </dl>
+        </div>
+
+        <div class="flex flex-wrap gap-4">
+          <a href="cart.html" class="btn-primary"><span>View Cart</span><i class="fa-solid fa-cart-shopping"></i></a>
+          <button type="button" onclick="customerLogout()" class="btn-ghost"><span>Sign Out</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const customer = getCustomer();
+      if (!customer) {
+        document.getElementById('account-guest').classList.remove('hidden');
+        return;
+      }
+      document.getElementById('account-panel').classList.remove('hidden');
+      document.getElementById('acc-name').textContent = customer.name;
+      document.getElementById('acc-email').textContent = customer.email;
+      document.getElementById('acc-phone').textContent = customer.phone;
+    });
+  </script>
+  <script src="js/translate.js"></script>
+</body>
+</html>
