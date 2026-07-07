@@ -37,13 +37,12 @@ function buildMobileMenu() {
   backdrop.className = 'mobile-backdrop';
   document.body.appendChild(backdrop);
 
-  // Create menu panel
+  // Create menu panel on body — must NOT live inside nav (nav has backdrop-blur)
   const menu = document.createElement('div');
   menu.id = 'mobile-menu';
-  menu.className = 'mobile-menu fixed top-0 right-0 h-screen w-[280px] max-w-[80vw] bg-[var(--bg)] border-l border-[var(--border)] flex flex-col z-[999]';
-  menu.style.padding = '24px';
+  menu.className = 'mobile-menu lg:hidden';
   menu.innerHTML = getMobileMenuHTML();
-  nav.appendChild(menu);
+  document.body.appendChild(menu);
 
   // Toggle logic
   function open() {
@@ -63,8 +62,8 @@ function buildMobileMenu() {
   backdrop.addEventListener('click', close);
   menu.querySelector('#mobile-menu-close')?.addEventListener('click', close);
 
-  // Close on internal link click
-  menu.querySelectorAll('a[href^="#"], a[href*="home.html#"], a[href*="atelier.html"]').forEach(link => {
+  // Close on any menu link click
+  menu.querySelectorAll('a[href]').forEach(link => {
     link.addEventListener('click', close);
   });
 
@@ -89,25 +88,25 @@ function getMobileMenuHTML() {
   if (customer) {
     authLinks = `
       <a href="${accountUrl}" class="mobile-menu-nav-link">
-        <span><i class="fa-solid fa-circle-user" style="margin-right:10px;color:var(--accent)"></i>My Account</span>
+        <span><i class="fa-solid fa-circle-user mobile-menu-icon" style="color:var(--accent)"></i>My Account</span>
         <i class="fa-solid fa-chevron-right"></i>
       </a>`;
   } else {
     authLinks = `
       <a href="${loginUrl}" class="mobile-menu-nav-link">
-        <span><i class="fa-solid fa-right-to-bracket" style="margin-right:10px;color:var(--muted)"></i>Sign In</span>
+        <span><i class="fa-solid fa-right-to-bracket mobile-menu-icon" style="color:var(--muted)"></i>Sign In</span>
         <i class="fa-solid fa-chevron-right"></i>
       </a>
       <a href="${registerUrl}" class="mobile-menu-nav-link">
-        <span><i class="fa-solid fa-user-plus" style="margin-right:10px;color:var(--muted)"></i>Register</span>
+        <span><i class="fa-solid fa-user-plus mobile-menu-icon" style="color:var(--muted)"></i>Register</span>
         <i class="fa-solid fa-chevron-right"></i>
       </a>`;
   }
 
   return `
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px">
-      <span class="font-display text-lg" style="letter-spacing:-0.02em">Menu</span>
-      <button id="mobile-menu-close" style="background:none;border:none;cursor:pointer;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--fg)">
+    <div class="mobile-menu-header">
+      <span class="font-display text-lg notranslate" style="letter-spacing:-0.02em">Menu</span>
+      <button id="mobile-menu-close" type="button" class="mobile-menu-close-btn notranslate" aria-label="Close menu">
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
