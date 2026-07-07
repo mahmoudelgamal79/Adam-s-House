@@ -80,13 +80,22 @@
     }
   
     /* ---------- 5. Perform the switch ---------- */
+    function closeMobileMenu() {
+      var menu = document.getElementById('mobile-menu');
+      var backdrop = document.getElementById('mobile-backdrop');
+      if (menu) menu.classList.remove('open');
+      if (backdrop) backdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
     function doSwitch() {
       if (busy) return;
-  
+
       var select = document.querySelector('.goog-te-combo');
       if (!select) return;
-  
+
       busy = true;
+      closeMobileMenu();
       var next = currentLang === 'en' ? 'ar' : 'en';
   
       select.value = next;
