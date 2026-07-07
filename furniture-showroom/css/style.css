@@ -5,7 +5,10 @@
   --border: #d4c5ad; --border-dark: #3d3225;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(68px + env(safe-area-inset-top, 0)); }
+@media (min-width: 1024px) {
+  html { scroll-padding-top: 88px; }
+}
 body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--fg); margin: 0; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 .font-display { font-family: 'Fraunces', serif; font-optical-sizing: auto; letter-spacing: -0.02em; }
 .font-display-italic { font-family: 'Fraunces', serif; font-style: italic; }
@@ -309,86 +312,190 @@ textarea.dash-input { resize: vertical; min-height: 80px; }
    Mobile & Tablet Responsive
    ============================================= */
 
+/* --- Nav: safe area + logo sizing --- */
+body > nav.fixed.top-0 {
+  padding-top: env(safe-area-inset-top, 0);
+}
+body > nav.fixed.top-0 a.flex.items-center img {
+  width: auto;
+  max-width: 118px;
+  height: 34px;
+  object-fit: contain;
+  object-position: left center;
+  flex-shrink: 0;
+}
+body > nav.fixed.top-0 .font-display.text-2xl {
+  font-size: 1.125rem;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
 /* --- Nav bar: compact on phones --- */
 @media (max-width: 640px) {
   body > nav.fixed.top-0 > div:first-child {
     padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 12px;
-    padding-bottom: 12px;
-  }
-  /* Smaller logo on phones */
-  body > nav.fixed.top-0 .font-display {
-    font-size: 1.25rem;
-  }
-  /* Tighter icon spacing */
-  body > nav.fixed.top-0 .flex.items-center.gap-4 {
+    padding-right: 0.75rem;
+    padding-top: 10px;
+    padding-bottom: 10px;
     gap: 0.5rem;
+  }
+  body > nav.fixed.top-0 a.flex.items-center img {
+    max-width: 104px;
+    height: 30px;
+  }
+  body > nav.fixed.top-0 .font-display.text-2xl {
+    font-size: 1rem;
+  }
+  body > nav.fixed.top-0 .flex.items-center.gap-4 {
+    gap: 0.125rem;
+    flex-shrink: 0;
   }
 }
 
 /* --- Nav bar: compact on tablets --- */
 @media (min-width: 641px) and (max-width: 1023px) {
   body > nav.fixed.top-0 > div:first-child {
-    padding-top: 14px;
-    padding-bottom: 14px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  body > nav.fixed.top-0 a.flex.items-center img {
+    max-width: 132px;
+    height: 38px;
+  }
+  body > nav.fixed.top-0 .font-display.text-2xl {
+    font-size: 1.25rem;
+  }
+  body > nav.fixed.top-0 .flex.items-center.gap-4 {
+    gap: 0.375rem;
   }
 }
 
-/* --- Hamburger button: larger tap target --- */
-#mobile-menu-btn {
-  display: inline-flex !important;
-  align-items: center;
-  justify-content: center;
-  width: 44px; height: 44px;
-  -webkit-tap-highlight-color: transparent;
+@media (min-width: 1024px) {
+  body > nav.fixed.top-0 a.flex.items-center img {
+    max-width: 168px;
+    height: 48px;
+  }
 }
-#mobile-menu-btn i { font-size: 22px; }
+
+/* --- Hide duplicate auth controls below desktop (mobile menu handles them) --- */
+@media (max-width: 1023px) {
+  body > nav.fixed.top-0 [data-login-link],
+  body > nav.fixed.top-0 [data-user-link].nav-icon-btn {
+    display: none !important;
+  }
+}
+
+/* --- Hamburger button: larger tap target (mobile/tablet only) --- */
+@media (max-width: 1023px) {
+  #mobile-menu-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  #mobile-menu-btn i { font-size: 20px; }
+}
 
 /* --- Nav icon buttons: 44px tap targets --- */
 @media (max-width: 1023px) {
   .nav-icon-btn, .lang-toggle-btn {
-    min-width: 44px; min-height: 44px;
+    min-width: 44px;
+    min-height: 44px;
     display: inline-flex !important;
-    align-items: center; justify-content: center;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  body > nav.fixed.top-0 .cart-count {
+    top: 4px;
+    right: 2px;
   }
 }
 
-/* --- Mobile menu: better padding on phones --- */
+/* --- Mobile menu panel --- */
+.mobile-menu {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: max(24px, env(safe-area-inset-bottom, 0));
+}
 @media (max-width: 640px) {
   .mobile-menu {
-    width: 100vw !important;
-    max-width: 85vw !important;
+    width: min(100vw, 320px) !important;
+    max-width: 88vw !important;
+    padding-top: max(20px, env(safe-area-inset-top, 0));
+  }
+  .mobile-menu-nav-link {
+    padding: 16px 0;
+    font-size: 1.125rem;
+  }
+}
+@media (min-width: 641px) and (max-width: 1023px) {
+  .mobile-menu {
+    width: min(100vw, 340px) !important;
+    max-width: 72vw !important;
   }
 }
 
 /* --- Contact section: phones --- */
 @media (max-width: 640px) {
   .contact-section {
-    padding-top: 4rem !important;
-    padding-bottom: 4rem !important;
+    padding-top: 3.5rem !important;
+    padding-bottom: 3.5rem !important;
+  }
+  .contact-section > div {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
   .contact-headline {
     max-width: none !important;
-    margin-bottom: 2rem !important;
+    margin-bottom: 1.75rem !important;
+    font-size: clamp(1.875rem, 8vw, 2.5rem) !important;
+    line-height: 1.12 !important;
   }
-  /* Stack the grid tighter */
   .contact-section .grid.lg\:grid-cols-2 {
     gap: 2rem !important;
   }
-  /* Smaller logo image on phones */
   .contact-logo-wrap {
-    max-height: 220px;
+    max-height: 200px;
+    border-radius: 20px;
+    box-shadow:
+      0 32px 40px rgba(0, 0, 0, 0.18),
+      0 12px 16px rgba(0, 0, 0, 0.1);
+  }
+  .contact-logo-wrap:hover {
+    transform: none;
   }
   .contact-logo-wrap img {
     object-position: center 30%;
   }
-  /* Tighter contact grid */
   .contact-details-grid {
-    gap: 1.25rem;
+    gap: 1.125rem;
+    margin-bottom: 2rem !important;
+  }
+  .contact-field {
+    gap: 0.375rem;
   }
   .contact-value {
     font-size: 1rem;
+    word-break: break-word;
+  }
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 0;
+    min-height: 44px;
+    line-height: 1.5;
+  }
+  .contact-social-link {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.05rem;
   }
   .contact-actions {
     flex-direction: column;
@@ -399,24 +506,53 @@ textarea.dash-input { resize: vertical; min-height: 80px; }
     width: 100%;
     justify-content: center;
     text-align: center;
+    min-height: 48px;
+    padding-top: 16px;
+    padding-bottom: 16px;
   }
-  /* Reduce eyebrow spacing */
   .contact-eyebrow {
-    margin-bottom: 1rem !important;
+    margin-bottom: 0.875rem !important;
   }
 }
 
 /* --- Contact section: tablets --- */
 @media (min-width: 641px) and (max-width: 1023px) {
   .contact-section {
-    padding-top: 5rem !important;
-    padding-bottom: 5rem !important;
+    padding-top: 4.5rem !important;
+    padding-bottom: 4.5rem !important;
+  }
+  .contact-section > div {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
   }
   .contact-section .grid.lg\:grid-cols-2 {
-    gap: 3rem !important;
+    gap: 2.5rem !important;
   }
   .contact-headline {
-    margin-bottom: 2.5rem !important;
+    max-width: none !important;
+    margin-bottom: 2rem !important;
+    font-size: clamp(2rem, 5vw, 3rem) !important;
+  }
+  .contact-details-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 2rem;
+    row-gap: 1.5rem;
+  }
+  .contact-logo-wrap {
+    border-radius: 24px;
+  }
+  .contact-actions .btn-primary,
+  .contact-actions .btn-ghost {
+    min-height: 48px;
+  }
+}
+
+@media (hover: none) {
+  .contact-logo-wrap:hover {
+    transform: none;
+    box-shadow:
+      0 70px 80px rgba(0, 0, 0, 0.28),
+      0 25px 30px rgba(0, 0, 0, 0.18);
   }
 }
 
@@ -424,12 +560,24 @@ textarea.dash-input { resize: vertical; min-height: 80px; }
 @media (max-width: 767px) {
   footer {
     padding-top: 2.5rem !important;
+    padding-bottom: max(2rem, env(safe-area-inset-bottom, 0)) !important;
+  }
+  footer > div {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
   footer .grid {
     display: flex;
     flex-direction: column;
-    gap: 1.75rem !important;
-    margin-bottom: 2rem !important;
+    gap: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  footer .grid > div:first-child {
+    text-align: center;
+    align-items: center;
+  }
+  footer .grid > div:first-child .flex.gap-3 {
+    justify-content: center;
   }
   footer .grid > div {
     padding-bottom: 1.25rem;
@@ -439,48 +587,95 @@ textarea.dash-input { resize: vertical; min-height: 80px; }
     border-bottom: none;
     padding-bottom: 0;
   }
-  /* Larger footer link tap targets */
-  footer ul li a,
-  footer ul li {
-    display: inline-block;
-    padding: 6px 0;
+  footer ul li a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 8px 0;
     font-size: 15px;
   }
+  footer ul li:not(:has(a)) {
+    padding: 4px 0;
+    font-size: 15px;
+    line-height: 1.55;
+  }
   footer h4 {
-    font-size: 12px;
-    padding-bottom: 8px;
-    margin-bottom: 10px !important;
+    font-size: 11px;
+    padding-bottom: 6px;
+    margin-bottom: 4px !important;
   }
-  /* Footer bottom bar */
   footer > div > .border-t {
-    padding-top: 1.5rem;
+    padding-top: 1.25rem;
     margin-top: 0;
+    text-align: center;
+    justify-content: center;
   }
-  /* Simple footer (category/product pages) */
-  footer .max-w-\[1400px\] {
+  /* Simple footer (category/product/atelier pages) */
+  footer:not(:has(.grid)) {
+    padding-top: 2rem !important;
+    padding-bottom: max(1.75rem, env(safe-area-inset-bottom, 0)) !important;
+  }
+  footer:not(:has(.grid)) > div {
     font-size: 13px;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    line-height: 1.75;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
   }
-  /* Footer social icons: larger tap targets */
   footer .flex.gap-3 a {
     width: 44px;
     height: 44px;
+    flex-shrink: 0;
+  }
+  footer .footer-contact-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+  footer .footer-contact-link:hover {
+    color: var(--accent-light);
   }
 }
 
 /* --- Footer: tablets (2x2 grid) --- */
 @media (min-width: 768px) and (max-width: 1023px) {
   footer {
-    padding-top: 3.5rem !important;
+    padding-top: 3rem !important;
+  }
+  footer > div {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
   }
   footer .grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 2.5rem !important;
+    gap: 2rem 2.5rem !important;
+    margin-bottom: 2rem !important;
   }
-  /* Footer bottom bar */
+  footer ul li a {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 0;
+  }
   footer > div > .border-t {
-    padding-top: 2rem;
+    padding-top: 1.75rem;
+  }
+}
+
+/* --- Hero / page top spacing under compact nav --- */
+@media (max-width: 640px) {
+  .home-page section.relative.min-h-screen {
+    padding-top: 5.5rem !important;
+  }
+  section.contact-section {
+    scroll-margin-top: 4.5rem;
+  }
+}
+@media (min-width: 641px) and (max-width: 1023px) {
+  .home-page section.relative.min-h-screen {
+    padding-top: 6.25rem !important;
   }
 }
 
