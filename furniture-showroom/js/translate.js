@@ -9,7 +9,7 @@
     'use strict';
   
     var STORAGE_KEY = 'adams-house-lang';
-    var currentLang = localStorage.getItem(STORAGE_KEY) || 'en';
+    var currentLang = sessionStorage.getItem(STORAGE_KEY) || 'en';
     var busy = false;
   
     /* ---------- 1. Hidden Google Translate anchor ---------- */
@@ -37,7 +37,6 @@
   
     /* ---------- 4. Create the toggle button ---------- */
     function createButton() {
-      // Avoid duplicates
       if (document.getElementById('lang-toggle')) return;
   
       var actions = document.querySelector('nav .flex.items-center.gap-4');
@@ -55,8 +54,7 @@
         doSwitch();
       });
   
-      // Insert before the cart icon
-      var cart = actions.querySelector('a[title="Cart"]');
+      var cart = actions.querySelector('a[title="Cart"], a[href*="cart.html"]');
       if (cart) {
         actions.insertBefore(btn, cart);
       } else {
@@ -88,6 +86,41 @@
       document.body.style.overflow = '';
     }
 
+    function clearTranslateCookies() {
+      var host = window.location.hostname;
+      var expires = 'expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      document.cookie = 'googtrans=;' + expires + ';path=/';
+      document.cookie = 'googtrans=;' + expires + ';path=/;domain=' + host;
+      document.cookie = 'googtrans=;' + expires + ';path=/;domain=.' + host;
+    }
+
+    function waitForCombo(callback, maxTries) {
+      var tries = 0;
+      var limit = maxTries || 60;
+      var id = setInterval(function () {
+        var select = document.querySelector('.goog-te-combo');
+        if (select || ++tries >= limit) {
+          clearInterval(id);
+          if (select) callback(select);
+        }
+      }, 200);
+    }
+
+    function setTranslateLang(lang) {
+      waitForCombo(function (select) {
+        select.value = lang === 'en' ? '' : lang;
+        select.dispatchEvent(new Event('change'));
+      });
+    }
+
+    function ensureEnglish() {
+      currentLang = 'en';
+      applyDirection('en');
+      clearTranslateCookies();
+      setTranslateLang('en');
+      setLabel();
+    }
+
     function doSwitch() {
       if (busy) return;
 
@@ -98,11 +131,11 @@
       closeMobileMenu();
       var next = currentLang === 'en' ? 'ar' : 'en';
   
-      select.value = next;
+      select.value = next === 'en' ? '' : next;
       select.dispatchEvent(new Event('change'));
   
       currentLang = next;
-      localStorage.setItem(STORAGE_KEY, next);
+      sessionStorage.setItem(STORAGE_KEY, next);
       setLabel();
       applyDirection(next);
   
@@ -125,24 +158,18 @@
   
     /* ---------- 7. Restore saved language on load ---------- */
     function restore() {
-      if (currentLang !== 'ar') return;
-  
-      // Pre-apply RTL so there's no flash
-      applyDirection('ar');
-  
-      var tries = 0;
-      var id = setInterval(function () {
-        if (document.querySelector('.goog-te-combo') || ++tries > 60) {
-          clearInterval(id);
-          if (document.querySelector('.goog-te-combo')) {
-            setTimeout(doSwitch, 400);
-          }
-        }
-      }, 200);
+      if (currentLang === 'ar') {
+        applyDirection('ar');
+        setTranslateLang('ar');
+        return;
+      }
+
+      ensureEnglish();
     }
   
-    /* ---------- 8. Boot ---------- */
+    /* ---------- 8. Boot — always start from English unless Arabic was saved ---------- */
     function init() {
+      applyDirection(currentLang === 'ar' ? 'ar' : 'en');
       createButton();
       restore();
     }
