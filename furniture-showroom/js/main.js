@@ -61,6 +61,7 @@ function buildMobileMenu() {
     menu.classList.contains('open') ? close() : open();
   });
   backdrop.addEventListener('click', close);
+  menu.querySelector('#mobile-menu-close')?.addEventListener('click', close);
 
   // Close on internal link click
   menu.querySelectorAll('a[href^="#"], a[href*="home.html#"], a[href*="atelier.html"]').forEach(link => {
