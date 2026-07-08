@@ -15,12 +15,10 @@
   <nav class="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/85 backdrop-blur-md border-b border-[var(--border)]/50">
   <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 py-3 lg:py-5 flex items-center justify-between">
 
-    <!-- Logo -->
     <a href="home.html" class="flex items-center gap-2 shrink-0">
       <img src="photos/logo_1.png" alt="Adam's House" class="h-8 sm:h-10 lg:h-12 w-auto object-contain">
     </a>
 
-    <!-- Desktop links -->
     <div class="hidden lg:flex items-center gap-10 text-sm font-medium">
       <a href="home.html#categories" class="nav-link">Collections</a>
       <a href="home.html#offers" class="nav-link">Offers</a>
@@ -28,16 +26,13 @@
       <a href="home.html#visit" class="nav-link">Contact</a>
     </div>
 
-    <!-- Right side actions -->
     <div class="flex items-center gap-3 sm:gap-5">
-
-      <!-- Cart -->
       <a href="cart.html" class="relative text-base sm:text-lg lg:text-xl hover:text-[var(--accent)] transition-colors nav-icon-btn" title="Cart">
         <i class="fa-solid fa-cart-shopping"></i>
         <span class="absolute -top-2 -right-2 bg-[var(--accent)] text-[var(--fg-light)] text-[10px] w-4 h-4 rounded-full flex items-center justify-center cart-count">0</span>
       </a>
 
-      <!-- Logged OUT: Sign In + Register (desktop only) -->
+      <!-- Logged OUT -->
       <a href="customer-login.html" data-login-link class="hidden md:inline-flex items-center text-[11px] lg:text-sm font-semibold tracking-wide uppercase border border-[var(--fg)] px-4 lg:px-5 py-2 lg:py-2.5 hover:bg-[var(--fg)] hover:text-[var(--fg-light)] transition-all">
         Sign In
       </a>
@@ -45,21 +40,16 @@
         Register
       </a>
 
-      <!-- Logged IN: My Account (desktop only) -->
+      <!-- Logged IN (replaces the user icon) -->
       <a href="account.html" data-account-link class="hidden md:inline-flex items-center gap-2 text-[11px] lg:text-sm font-semibold tracking-wide uppercase text-[var(--accent)] hover:underline" style="display:none">
-        <i class="fa-regular fa-user"></i>
-        <span>Account</span>
+        <i class="fa-regular fa-user"></i><span>Account</span>
       </a>
 
-      <!-- Mobile menu toggle -->
       <button id="mobile-menu-btn" class="lg:hidden text-lg sm:text-xl pl-1" aria-label="Open menu">
         <i class="fa-solid fa-bars"></i>
       </button>
     </div>
   </div>
-
-  <!-- NOTE: The mobile menu is built dynamically by js/main.js (buildMobileMenu).
-       You can DELETE the old static #mobile-menu div that was here — it is redundant. -->
 </nav>
 
 
