@@ -1247,8 +1247,7 @@ body.product-page > div:first-of-type {
 }
 
 @media (max-width: 767px) {
-  /* Hide brand block, keep only copyright */
-  footer .grid.md\:grid-cols-2.lg\:grid-cols-4 {
+  footer .grid.md\:grid-cols-2.lg\:grid-cols-4 > div:first-child > p {
     display: none !important;
   }
 }
