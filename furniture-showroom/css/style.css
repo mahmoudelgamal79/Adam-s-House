@@ -1223,3 +1223,25 @@ body.product-page > div:first-of-type {
     gap: 20px !important;
   }
 }
+
+/* On mobile (< 768px), keep ONLY the first footer column
+   (the brand + social icons). Hide Collections, Atelier, Contact. */
+@media (max-width: 767px) {
+  footer .grid.md\:grid-cols-2.lg\:grid-cols-4 > div:not(:first-child) {
+    display: none !important;
+  }
+
+  /* Optional: center the brand column on mobile for a cleaner look */
+  footer .grid.md\:grid-cols-2.lg\:grid-cols-4 > div:first-child {
+    text-align: center;
+  }
+  footer .grid.md\:grid-cols-2.lg\:grid-cols-4 > div:first-child .flex.gap-3 {
+    justify-content: center;
+  }
+
+  /* Tighten the footer grid gap since there's only one column now */
+  footer .grid.md\:grid-cols-2.lg\:grid-cols-4 {
+    gap: 0 !important;
+    margin-bottom: 24px !important;
+  }
+}
