@@ -12,74 +12,46 @@
 <body class="home-page">
 
   <!-- Navigation -->
- <nav class="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/85 backdrop-blur-md border-b border-[var(--border)]/50">
-  <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 py-3 lg:py-5 flex items-center justify-between">
-
-    <!-- Logo -->
-    <a href="home.html" class="flex items-center gap-2 shrink-0">
-      <img src="photos/logo_1.png" alt="Adam's House" class="h-8 sm:h-10 lg:h-12 w-auto object-contain">
-    </a>
-
-    <!-- Desktop links -->
-    <div class="hidden lg:flex items-center gap-10 text-sm font-medium">
-      <a href="home.html#categories" class="nav-link">Collections</a>
-      <a href="home.html#offers" class="nav-link">Offers</a>
-      <a href="atelier.html" class="nav-link">Atelier</a>
-      <a href="home.html#visit" class="nav-link">Contact</a>
-    </div>
-
-    <!-- Right side actions -->
-    <div class="flex items-center gap-2 sm:gap-4 lg:gap-5">
-
-      <!-- Language switcher with working dropdown -->
-      <div class="lang-switcher relative">
-        <button id="lang-toggle" type="button"
-                class="nav-icon-btn flex items-center gap-1.5 text-sm hover:text-[var(--accent)] transition-colors"
-                aria-label="Change language" title="Language">
-          <i class="fa-solid fa-globe text-base sm:text-lg lg:text-xl"></i>
-          <!-- Text label: hidden on mobile (< 768px), visible on md+ -->
-          <span class="lang-current hidden md:inline text-xs font-semibold uppercase tracking-wide">EN</span>
-        </button>
-
-        <!-- Dropdown -->
-        <div id="lang-dropdown" class="lang-dropdown absolute top-full right-0 mt-2 min-w-[140px] bg-[var(--bg)] border border-[var(--border)] shadow-lg hidden">
-          <button type="button" class="lang-option block w-full text-left px-4 py-2.5 text-sm hover:bg-[var(--bg-alt)] hover:text-[var(--accent)] transition-colors border-b border-[var(--border)]" data-lang="en">
-            English
-          </button>
-          <button type="button" class="lang-option block w-full text-left px-4 py-2.5 text-sm hover:bg-[var(--bg-alt)] hover:text-[var(--accent)] transition-colors" data-lang="ar">
-            العربية
-          </button>
-        </div>
+   <nav class="fixed top-0 left-0 right-0 z-50 bg-[var(--bg)]/85 backdrop-blur-md border-b border-[var(--border)]/50">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 py-5 flex items-center justify-between">
+      <a href="home.html" class="flex items-center gap-2">
+        <img src="photos/logo_1.png" alt="Logo" class="w-70 h-12 object-cover">
+      </a>
+      <div class="hidden lg:flex items-center gap-10 text-sm font-medium">
+        <a href="home.html#categories" class="nav-link">Collections</a>
+        <a href="home.html#offers" class="nav-link">Offers</a>
+        <a href="atelier.html" class="nav-link">Atelier</a>
+        <a href="home.html#visit" class="nav-link">Contact</a>
       </div>
-
-      <!-- Cart -->
-      <a href="cart.html" class="relative text-base sm:text-lg lg:text-xl hover:text-[var(--accent)] transition-colors nav-icon-btn" title="Cart">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <span class="absolute -top-2 -right-2 bg-[var(--accent)] text-[var(--fg-light)] text-[10px] w-4 h-4 rounded-full flex items-center justify-center cart-count">0</span>
-      </a>
-
-      <!-- Logged OUT: Sign In + Register (desktop only) -->
-      <a href="customer-login.html" data-login-link class="hidden md:inline-flex items-center text-[11px] lg:text-sm font-semibold tracking-wide uppercase border border-[var(--fg)] px-4 lg:px-5 py-2 lg:py-2.5 hover:bg-[var(--fg)] hover:text-[var(--fg-light)] transition-all">
-        Sign In
-      </a>
-      <a href="register.html" data-login-link class="hidden md:inline-flex items-center text-[11px] lg:text-sm font-semibold tracking-wide uppercase text-[var(--accent)] hover:underline">
-        Register
-      </a>
-
-      <!-- Logged IN: My Account (desktop only) -->
-      <a href="account.html" data-account-link class="hidden md:inline-flex items-center gap-2 text-[11px] lg:text-sm font-semibold tracking-wide uppercase text-[var(--accent)] hover:underline" style="display:none">
-        <i class="fa-regular fa-user"></i>
-        <span>Account</span>
-      </a>
-
-      <!-- Mobile menu toggle -->
-      <button id="mobile-menu-btn" class="lg:hidden text-lg sm:text-xl pl-1" aria-label="Open menu">
-        <i class="fa-solid fa-bars"></i>
-      </button>
+      <div class="flex items-center gap-4">
+        <a href="cart.html" class="relative text-xl hover:text-[var(--accent)] transition-colors nav-icon-btn" title="Cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="absolute -top-2 -right-2 bg-[var(--accent)] text-[var(--fg-light)] text-[10px] w-4 h-4 rounded-full flex items-center justify-center cart-count">0</span>
+        </a>
+        <a href="customer-login.html" data-user-link class="nav-icon-btn text-xl hover:text-[var(--accent)] transition-colors" title="Sign in">
+          <i class="fa-solid fa-circle-user"></i>
+        </a>
+        <a href="customer-login.html" data-login-link class="hidden md:flex items-center gap-2 text-sm font-semibold tracking-wide uppercase border border-[var(--fg)] px-5 py-2.5 hover:bg-[var(--fg)] hover:text-[var(--fg-light)] transition-all">
+          Sign In
+        </a>
+        <a href="register.html" data-login-link class="hidden md:flex items-center gap-2 text-sm font-semibold tracking-wide uppercase text-[var(--accent)] hover:underline">
+          Register
+        </a>
+        <button id="mobile-menu-btn" class="lg:hidden text-xl"><i class="fa-solid fa-bars"></i></button>
+      </div>
     </div>
-  </div>
-</nav>
-
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-screen w-1/2 bg-[var(--bg)] border-l border-[var(--border)] p-6 lg:hidden flex flex-col gap-6">
+      <button id="mobile-menu-close" class="self-end text-2xl" onclick="document.getElementById('mobile-menu').classList.remove('open')"><i class="fa-solid fa-xmark"></i></button>
+      <a href="home.html#categories" class="text-xl font-display" onclick="document.getElementById('mobile-menu').classList.remove('open')">Collections</a>
+      <a href="home.html#offers" class="text-xl font-display" onclick="document.getElementById('mobile-menu').classList.remove('open')">Offers</a>
+      <a href="home.html#craft" class="text-xl font-display" onclick="document.getElementById('mobile-menu').classList.remove('open')">Atelier</a>
+      <a href="home.html#visit" class="text-xl font-display" onclick="document.getElementById('mobile-menu').classList.remove('open')">Contact</a>
+      <a href="customer-login.html" data-login-link class="text-xl font-display text-[var(--accent)]">Sign In</a>
+      <a href="register.html" data-login-link class="text-xl font-display text-[var(--muted)]">Register</a>
+      <a href="account.html" data-user-link class="text-xl font-display text-[var(--accent)] mt-auto"><i class="fa-solid fa-circle-user mr-2"></i>My Account</a>
+    </div>
+  </nav>
 
 
 
