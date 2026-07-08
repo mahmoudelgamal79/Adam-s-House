@@ -1129,7 +1129,7 @@ body > nav.fixed.top-0.nav-over-dark #lang-toggle:hover {
   .img-overlay.aspect-\[4\/5\] { aspect-ratio: 4 / 5 !important; }
   .img-overlay img { object-position: center top; }
   /* Category card images — match desktop (4:3 landscape) */
-  .cat-card-image { aspect-ratio: 4 / 3 !important; }
+  .cat-card-image { aspect-ratio: 4 / 5 !important; }
   /* Product card images — match desktop (4:3 landscape) */
   .product-img-wrap { aspect-ratio: 4 / 3 !important; }
   /* Contact section logo image */
