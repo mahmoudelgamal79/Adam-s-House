@@ -1047,11 +1047,11 @@ body > nav.fixed.top-0.nav-over-dark #lang-toggle:hover {
    Responsive — Hero
    =============================================================== */
 
-/* Home page hero spacing under compact nav */
+/* Home page hero spacing — restored to original (pt-28 / pb-16) */
 @media (max-width: 640px) {
   .home-page section.relative.min-h-screen {
-    padding-top: 5.5rem !important;
-    padding-bottom: 2rem !important;
+    padding-top: 112px !important;  /* original pt-28 = 7rem */
+    padding-bottom: 64px !important; /* original pb-16 = 4rem */
   }
   section.contact-section { scroll-margin-top: 4.5rem; }
 }
@@ -1061,12 +1061,15 @@ body > nav.fixed.top-0.nav-over-dark #lang-toggle:hover {
   }
 }
 
-/* Hero headline sizes */
+/* Hero headline — restored to original clamp(3rem, 8vw, 7rem) */
 @media (max-width: 640px) {
-  .hero-headline { font-size: 2.5rem; margin-bottom: 20px !important; }
+  .hero-headline {
+    font-size: clamp(3rem, 8vw, 7rem) !important;
+    margin-bottom: 32px !important; /* original mb-8 = 2rem */
+  }
 }
 @media (min-width: 641px) and (max-width: 768px) {
-  .hero-headline { font-size: 3rem; }
+  .hero-headline { font-size: clamp(3rem, 8vw, 7rem) !important; }
 }
 
 
@@ -1074,16 +1077,18 @@ body > nav.fixed.top-0.nav-over-dark #lang-toggle:hover {
    Responsive — Section spacing (mobile + tablet)
    =============================================================== */
 
+/* Section padding RESTORED to original py-24 (mobile/tablet) / lg:py-32 (desktop).
+   Only grid gaps remain tightened — sections themselves are back to original size. */
 @media (max-width: 640px) {
   #categories,
   #offers,
   .contact-section {
-    padding-top: 36px !important;
-    padding-bottom: 36px !important;
+    padding-top: 96px !important;  /* original py-24 = 6rem */
+    padding-bottom: 96px !important;
   }
   #categories > div > div:first-child,
   #offers > div > div:first-child {
-    margin-bottom: 24px !important;
+    margin-bottom: 64px !important; /* original mb-16 = 4rem */
   }
   #categories-grid { gap: 12px !important; }
   #offers-grid { gap: 14px !important; }
@@ -1093,11 +1098,25 @@ body > nav.fixed.top-0.nav-over-dark #lang-toggle:hover {
   #categories,
   #offers,
   .contact-section {
-    padding-top: 56px !important;
-    padding-bottom: 56px !important;
+    padding-top: 96px !important;  /* py-24 = 6rem */
+    padding-bottom: 96px !important;
+  }
+  #categories > div > div:first-child,
+  #offers > div > div:first-child {
+    margin-bottom: 64px !important;
   }
   #categories-grid,
   #offers-grid { gap: 20px !important; }
+}
+
+/* Desktop section padding — restored to lg:py-32 (8rem = 128px) */
+@media (min-width: 1025px) {
+  #categories,
+  #offers,
+  .contact-section {
+    padding-top: 128px !important;
+    padding-bottom: 128px !important;
+  }
 }
 
 
@@ -1180,16 +1199,16 @@ body > nav.fixed.top-0.nav-over-dark #lang-toggle:hover {
   }
   .contact-headline {
     max-width: none !important;
-    margin-bottom: 1.25rem !important;
-    font-size: clamp(1.625rem, 7vw, 2.125rem) !important;
-    line-height: 1.12 !important;
+    margin-bottom: 48px !important; /* restored to original mb-12 = 3rem */
+    font-size: clamp(2.25rem, 9vw, 3.5rem) !important; /* restored — close to original clamp(2.25rem, 4.5vw, 3.75rem) */
+    line-height: 1.08 !important;
   }
   .contact-section .grid.lg\:grid-cols-2 { gap: 1.5rem !important; }
   .contact-logo-wrap:hover { transform: none; }
   .contact-logo-wrap img { object-position: center center; }
   .contact-details-grid {
     gap: 0.875rem;
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 48px !important; /* restored to original mb-12 = 3rem */
   }
   .contact-field { gap: 0.25rem; }
   .contact-label { font-size: 10px; }
