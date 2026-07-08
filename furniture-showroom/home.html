@@ -31,15 +31,26 @@
     <!-- Right side actions -->
     <div class="flex items-center gap-2 sm:gap-4 lg:gap-5">
 
-      <!-- Language switcher (globe icon) -->
-      <!-- If your js/translate.js injects its own button, give it the same id="lang-toggle"
-           or change the id below to whatever selector translate.js looks for. -->
-      <button id="lang-toggle" type="button"
-              class="nav-icon-btn flex items-center gap-1.5 text-sm hover:text-[var(--accent)] transition-colors"
-              aria-label="Change language" title="Language">
-        <i class="fa-solid fa-globe text-base sm:text-lg lg:text-xl"></i>
-        <span class="lang-current hidden sm:inline text-xs font-semibold uppercase tracking-wide">EN</span>
-      </button>
+      <!-- Language switcher with working dropdown -->
+      <div class="lang-switcher relative">
+        <button id="lang-toggle" type="button"
+                class="nav-icon-btn flex items-center gap-1.5 text-sm hover:text-[var(--accent)] transition-colors"
+                aria-label="Change language" title="Language">
+          <i class="fa-solid fa-globe text-base sm:text-lg lg:text-xl"></i>
+          <!-- Text label: hidden on mobile (< 768px), visible on md+ -->
+          <span class="lang-current hidden md:inline text-xs font-semibold uppercase tracking-wide">EN</span>
+        </button>
+
+        <!-- Dropdown -->
+        <div id="lang-dropdown" class="lang-dropdown absolute top-full right-0 mt-2 min-w-[140px] bg-[var(--bg)] border border-[var(--border)] shadow-lg hidden">
+          <button type="button" class="lang-option block w-full text-left px-4 py-2.5 text-sm hover:bg-[var(--bg-alt)] hover:text-[var(--accent)] transition-colors border-b border-[var(--border)]" data-lang="en">
+            English
+          </button>
+          <button type="button" class="lang-option block w-full text-left px-4 py-2.5 text-sm hover:bg-[var(--bg-alt)] hover:text-[var(--accent)] transition-colors" data-lang="ar">
+            العربية
+          </button>
+        </div>
+      </div>
 
       <!-- Cart -->
       <a href="cart.html" class="relative text-base sm:text-lg lg:text-xl hover:text-[var(--accent)] transition-colors nav-icon-btn" title="Cart">
@@ -68,6 +79,7 @@
     </div>
   </div>
 </nav>
+
 
 
 
