@@ -1007,3 +1007,288 @@ body > nav.fixed.top-0.nav-over-dark .lang-toggle-btn:hover {
   .product-card h3 { font-size: 16px; }
   .product-card p { font-size: 12px; }
 }
+
+
+/* ---------- LANGUAGE ICON FIX ---------- */
+/* Make sure the globe button is always visible */
+#lang-toggle {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: var(--fg);
+  padding: 6px;
+  min-width: 36px;
+  min-height: 36px;
+}
+#lang-toggle:hover {
+  color: var(--accent);
+}
+/* If translate.js builds a dropdown, style it to match */
+.lang-menu,
+#lang-menu,
+.language-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+  min-width: 140px;
+  z-index: 100;
+}
+.lang-menu a,
+#lang-menu a,
+.language-dropdown a {
+  display: block;
+  padding: 10px 16px;
+  font-size: 13px;
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s ease;
+}
+.lang-menu a:last-child,
+#lang-menu a:last-child,
+.language-dropdown a:last-child {
+  border-bottom: none;
+}
+.lang-menu a:hover,
+#lang-menu a:hover,
+.language-dropdown a:hover {
+  background: var(--bg-alt);
+  color: var(--accent);
+}
+
+/* ---------- MOBILE: SMALLER EVERYTHING ---------- */
+
+@media (max-width: 640px) {
+
+  /* --- Nav bar tighter --- */
+  body > nav.fixed > div {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+  body > nav.fixed img {
+    height: 28px !important;
+  }
+
+  /* --- Smaller buttons globally on mobile --- */
+  .btn-primary,
+  .btn-ghost {
+    font-size: 12px !important;
+    padding: 10px 18px !important;
+    letter-spacing: 0.05em !important;
+  }
+  .btn-primary span,
+  .btn-ghost span {
+    font-size: 12px !important;
+  }
+  .btn-primary i,
+  .btn-ghost i {
+    font-size: 11px !important;
+  }
+
+  /* --- Hero headline smaller on mobile --- */
+  .hero-headline {
+    font-size: clamp(2.25rem, 11vw, 3.5rem) !important;
+    margin-bottom: 24px !important;
+  }
+  .hero-headline br + span,
+  .hero-headline span {
+    line-height: 1 !important;
+  }
+
+  /* --- Section headings smaller --- */
+  #categories h2,
+  #offers h2,
+  .contact-headline {
+    font-size: 28px !important;
+    line-height: 1.15 !important;
+  }
+  #categories .text-xs.uppercase,
+  #offers .text-xs.uppercase {
+    font-size: 9px !important;
+    letter-spacing: 0.18em !important;
+  }
+  #categories p,
+  #offers p {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+  }
+
+  /* --- Category grid: 2 columns, smaller cards --- */
+  #categories-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .cat-card-image {
+    aspect-ratio: 3 / 4 !important;
+  }
+  .cat-card-content {
+    padding: 10px !important;
+  }
+  .cat-card-content .text-\[10px\] {
+    font-size: 8px !important;
+    letter-spacing: 0.15em !important;
+    margin-bottom: 2px !important;
+  }
+  .cat-card-content h3 {
+    font-size: 15px !important;
+    line-height: 1.1 !important;
+    margin-bottom: 4px !important;
+  }
+  .cat-card-desc {
+    font-size: 10px !important;
+    line-height: 1.35 !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .cat-card-cta {
+    font-size: 9px !important;
+    letter-spacing: 0.1em !important;
+    margin-top: 6px !important;
+  }
+  .cat-card-cta i {
+    font-size: 8px !important;
+  }
+
+  /* --- Offers / product grid: 1 column, smaller --- */
+  #offers-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+  .product-card .p-5 {
+    padding: 12px !important;
+  }
+  .product-card .text-\[10px\] {
+    font-size: 9px !important;
+  }
+  .product-card h3 {
+    font-size: 15px !important;
+    margin-bottom: 4px !important;
+  }
+  .product-card p {
+    font-size: 11px !important;
+    line-height: 1.4 !important;
+    margin-bottom: 10px !important;
+  }
+  .product-card .font-display.text-lg {
+    font-size: 15px !important;
+  }
+  .product-card .text-sm.line-through {
+    font-size: 11px !important;
+  }
+  .product-card .text-xs.uppercase {
+    font-size: 9px !important;
+  }
+  .product-card .pt-4 {
+    padding-top: 8px !important;
+  }
+
+  /* --- Offer badge smaller --- */
+  .offer-badge {
+    font-size: 10px !important;
+    padding: 4px 8px !important;
+    min-width: 36px !important;
+    height: auto !important;
+  }
+
+  /* --- Color dots smaller --- */
+  .color-dot {
+    width: 10px !important;
+    height: 10px !important;
+  }
+  .product-color-dots {
+    gap: 4px !important;
+    padding: 6px !important;
+  }
+
+  /* --- Contact section smaller --- */
+  .contact-headline {
+    margin-bottom: 24px !important;
+  }
+  .contact-details-grid {
+    gap: 14px !important;
+    margin-bottom: 24px !important;
+  }
+  .contact-label {
+    font-size: 9px !important;
+  }
+  .contact-value {
+    font-size: 13px !important;
+  }
+  .contact-actions {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  .contact-actions .btn-primary,
+  .contact-actions .btn-ghost {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* --- Footer smaller --- */
+  footer h4 {
+    font-size: 10px !important;
+    margin-bottom: 12px !important;
+  }
+  footer ul li,
+  footer p,
+  footer li {
+    font-size: 12px !important;
+  }
+  footer .font-display.text-2xl {
+    font-size: 18px !important;
+  }
+
+  /* --- Floating hero tag + featured bar --- */
+  .floating-tag {
+    display: none !important;
+  }
+  .absolute.-bottom-6 {
+    margin: 0 8px !important;
+    padding: 10px !important;
+  }
+  .absolute.-bottom-6 .font-display {
+    font-size: 14px !important;
+  }
+  .absolute.-bottom-6 .text-xs {
+    font-size: 9px !important;
+  }
+
+  /* --- Section padding tighter --- */
+  #categories,
+  #offers,
+  .contact-section {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+}
+
+/* ---------- TABLET (641px – 1024px): slight reduction ---------- */
+@media (min-width: 641px) and (max-width: 1024px) {
+  #categories-grid {
+    gap: 18px !important;
+  }
+  .cat-card-content h3 {
+    font-size: 22px !important;
+  }
+  .cat-card-desc {
+    font-size: 12px !important;
+  }
+  #offers-grid {
+    gap: 18px !important;
+  }
+  .product-card h3 {
+    font-size: 17px !important;
+  }
+  .product-card p {
+    font-size: 12px !important;
+  }
+}
