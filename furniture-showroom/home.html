@@ -29,7 +29,17 @@
     </div>
 
     <!-- Right side actions -->
-    <div class="flex items-center gap-3 sm:gap-5">
+    <div class="flex items-center gap-2 sm:gap-4 lg:gap-5">
+
+      <!-- Language switcher (globe icon) -->
+      <!-- If your js/translate.js injects its own button, give it the same id="lang-toggle"
+           or change the id below to whatever selector translate.js looks for. -->
+      <button id="lang-toggle" type="button"
+              class="nav-icon-btn flex items-center gap-1.5 text-sm hover:text-[var(--accent)] transition-colors"
+              aria-label="Change language" title="Language">
+        <i class="fa-solid fa-globe text-base sm:text-lg lg:text-xl"></i>
+        <span class="lang-current hidden sm:inline text-xs font-semibold uppercase tracking-wide">EN</span>
+      </button>
 
       <!-- Cart -->
       <a href="cart.html" class="relative text-base sm:text-lg lg:text-xl hover:text-[var(--accent)] transition-colors nav-icon-btn" title="Cart">
@@ -57,9 +67,6 @@
       </button>
     </div>
   </div>
-
-  <!-- NOTE: The mobile menu is built dynamically by js/main.js (buildMobileMenu).
-       You can DELETE the old static #mobile-menu div that was here — it is redundant. -->
 </nav>
 
 
