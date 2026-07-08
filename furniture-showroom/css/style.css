@@ -1245,3 +1245,10 @@ body.product-page > div:first-of-type {
     margin-bottom: 24px !important;
   }
 }
+
+@media (max-width: 767px) {
+  /* Hide the copyright bar (the bottom row with the © notice) */
+  footer .pt-8.border-t {
+    display: none !important;
+  }
+}
