@@ -56,60 +56,30 @@
 
 
   <!-- Hero -->
-  <section class="relative min-h-screen pt-28 lg:pt-32 pb-16 overflow-hidden grain">
-    <canvas id="hero-canvas" class="hero-canvas"></canvas>
-    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
-      <div class="grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
-        <div class="lg:col-span-6 relative">
-          <div class="flex items-center gap-3 mb-8 reveal">
-            <span class="w-12 h-px bg-[var(--accent)]"></span>
-            <span class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--accent)]">Alexandria · Since 2010</span>
-          </div>
-          <h1 class="hero-headline font-display text-[clamp(3rem,8vw,7rem)] font-light leading-[0.95] mb-8">
-            <span style="animation-delay: 0.1s">Furniture</span><br>
-            <span style="animation-delay: 0.3s" class="font-display-italic font-normal">that holds</span><br>
-            <span style="animation-delay: 0.5s">time.</span>
-          </h1>
-          <p class="text-lg text-[var(--muted)] max-w-md mb-10 leading-relaxed reveal" style="transition-delay: 0.7s">
-            Three generations of cabinetmakers, seven collections under one roof. Each piece is drawn by hand, joined without compromise, and finished in slow layers.
-          </p>
-          <div class="flex flex-wrap gap-4 reveal" style="transition-delay: 0.9s">
-            <a href="#categories" class="btn-primary">
-              <span>Explore Collections</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </a>
-            <a href="#visit" class="btn-ghost">
-              <span>Contact Us</span>
-            </a>
-          </div>
-        </div>
-        <div class="lg:col-span-6 relative">
-          <div class="relative">
-            <div class="img-overlay aspect-[4/5] overflow-hidden">
-              <img src="photos/1.jpeg" alt="Featured furniture" class="w-full h-full object-cover">
-            </div>
-            <div class="floating-tag absolute -left-6 top-12 hidden md:block">
-              <div class="flex items-center gap-3">
-                <span class="w-2 h-2 rounded-full bg-[var(--accent)] pulse"></span>
-                <span>Walnut · Hand-rubbed</span>
-              </div>
-            </div>
-            <div class="absolute -bottom-6 left-0 right-0 mx-6 bg-[var(--bg)] border border-[var(--border)] p-5 flex items-center justify-between">
-              <div>
-                <div class="text-xs uppercase tracking-wider text-[var(--muted)]">Featured</div>
-                <div class="font-display text-xl mt-1">Vienna Canopy Bed</div>
-              </div>
-              <div class="text-right">
-                <div class="text-xs uppercase tracking-wider text-[var(--muted)]">From</div>
-                <div class="font-display text-xl mt-1">EGP 42,000</div>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div class="lg:col-span-6 relative">
+  <div class="relative">
+
+    <!-- Sale Product Carousel — slides injected by js/main.js -->
+    <div id="hero-sale-carousel" class="hero-carousel img-overlay aspect-[4/5] overflow-hidden relative">
+      <!-- Fallback slide (shown if JS hasn't loaded yet OR if there are no sale products) -->
+      <div class="hero-carousel-slide is-active">
+        <img src="photos/1.jpeg" alt="Featured furniture" class="w-full h-full object-cover">
       </div>
     </div>
-  </section>
 
+    <!-- Floating tag (kept, but updated text to reflect rotating sale items) -->
+    <div class="floating-tag absolute -left-6 top-12 hidden md:block">
+      <div class="flex items-center gap-3">
+        <span class="w-2 h-2 rounded-full bg-[var(--accent)] pulse"></span>
+        <span>On Sale · Rotating</span>
+      </div>
+    </div>
+
+    <!-- Carousel navigation dots (injected by JS) -->
+    <div id="hero-carousel-dots" class="hero-carousel-dots" aria-hidden="true"></div>
+
+  </div>
+</div>
   <!-- Categories -->
   <section id="categories" class="py-24 lg:py-32 relative">
     <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
