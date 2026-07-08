@@ -927,3 +927,83 @@ body > nav.fixed.top-0.nav-over-dark .lang-toggle-btn:hover {
 [dir="rtl"] .mobile-menu-nav-link i.fa-chevron-right {
   transform: rotate(180deg);
 }
+
+
+/* Mobile menu — smaller text, better rhythm */
+.mobile-menu {
+  width: 86vw !important;
+  max-width: 360px;
+  padding: 20px 22px 28px !important;
+  gap: 4px !important;
+  box-shadow: -20px 0 60px rgba(0,0,0,0.15);
+}
+.mobile-menu-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 4px !important;
+  font-size: 15px !important;   /* was 20px — much more phone-friendly */
+  font-weight: 500;
+  color: var(--fg);
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s ease, padding-left 0.2s ease;
+}
+.mobile-menu-nav-link:hover {
+  color: var(--accent);
+  padding-left: 8px !important;
+}
+.mobile-menu-nav-link i.fa-chevron-right {
+  font-size: 11px;
+  color: var(--muted);
+  transition: transform 0.2s ease;
+}
+.mobile-menu-nav-link:hover i.fa-chevron-right {
+  transform: translateX(3px);
+  color: var(--accent);
+}
+
+/* Desktop nav links — underline animation */
+@media (min-width: 1024px) {
+  .nav-link { position: relative; padding-bottom: 4px; }
+  .nav-link::after {
+    content: ''; position: absolute; left: 0; bottom: 0;
+    width: 0; height: 1px; background: var(--accent);
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover::after { width: 100%; }
+}
+
+/* Product images — premium hover zoom + gradient */
+.product-img-wrap {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--bg-alt);
+}
+.product-img-wrap::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.08) 100%);
+  pointer-events: none; z-index: 1;
+}
+.product-img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.product-card:hover .product-img { transform: scale(1.05); }
+
+/* Category cards — same treatment */
+.cat-img {
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s ease;
+}
+.cat-card:hover .cat-img { transform: scale(1.06); }
+
+/* Mobile — slightly smaller card text + tighter gaps */
+@media (max-width: 640px) {
+  #categories-grid, #offers-grid { gap: 16px !important; }
+  .cat-card-content h3 { font-size: 22px !important; }
+  .cat-card-desc { font-size: 12px !important; }
+  .product-card h3 { font-size: 16px; }
+  .product-card p { font-size: 12px; }
+}
