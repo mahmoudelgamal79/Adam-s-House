@@ -1125,14 +1125,14 @@ body > nav.fixed.top-0.nav-over-dark #lang-toggle:hover {
    =============================================================== */
 
 @media (max-width: 640px) {
-  /* Hero featured image — portrait (matches reference image: taller than wide) */
+  /* Hero featured image — portrait */
   .img-overlay.aspect-\[4\/5\] { aspect-ratio: 4 / 5 !important; }
   .img-overlay img { object-position: center top; }
-  /* Category card images — portrait, like the reference (3:4) */
-  .cat-card-image { aspect-ratio: 3 / 4 !important; }
-  /* Product card images — portrait, like the reference (3:4) */
-  .product-img-wrap { aspect-ratio: 3 / 4 !important; }
-  /* Contact section logo image — portrait too, for consistency */
+  /* Category card images — match desktop (4:3 landscape) */
+  .cat-card-image { aspect-ratio: 4 / 3 !important; }
+  /* Product card images — match desktop (4:3 landscape) */
+  .product-img-wrap { aspect-ratio: 4 / 3 !important; }
+  /* Contact section logo image */
   .contact-logo-wrap { aspect-ratio: 4 / 5 !important; }
 }
 
