@@ -1131,7 +1131,7 @@ body > nav.fixed.top-0.nav-over-dark #lang-toggle:hover {
   /* Category card images — portrait, like the reference (3:4) */
   .cat-card-image { aspect-ratio: 3 / 4 !important; }
   /* Product card images — portrait, like the reference (3:4) */
-  .product-img-wrap { aspect-ratio: 3 / 4 !important; }
+  .product-img-wrap { aspect-ratio: 2 / 3 !important; }
   /* Contact section logo image — portrait too, for consistency */
   .contact-logo-wrap { aspect-ratio: 4 / 5 !important; }
 }
