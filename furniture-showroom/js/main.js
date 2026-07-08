@@ -618,3 +618,16 @@ function initHeroCanvas() {
   window.addEventListener('resize', resize);
   draw();
 }
+
+(function () {
+  const original = window.updateCustomerNav;
+  if (typeof original !== 'function') return;
+  window.updateCustomerNav = function () {
+    original.apply(this, arguments);
+    const customer = getCustomer();
+    document.querySelectorAll('[data-account-link]').forEach(el => {
+      if (customer) { el.style.display = ''; el.classList.remove('hidden'); }
+      else { el.style.display = 'none'; el.classList.add('hidden'); }
+    });
+  };
+})();
